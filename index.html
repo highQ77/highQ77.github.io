@@ -377,6 +377,11 @@
           mouseX = e.clientX - rect.left
           mouseY = e.clientY - rect.top - window.scrollY
         });
+        bg.addEventListener('touchmove', function (e) {
+          const rect = bg.getBoundingClientRect()
+          mouseX = e.touches[0].clientX - rect.left
+          mouseY = e.touches[0].clientY - rect.top - window.scrollY
+        })
 
         let spkArray = []
         const loop = () => {
