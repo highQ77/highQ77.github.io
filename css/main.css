@@ -1,0 +1,40 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: .9;
+}
+
+/* ------------------------ */
+
+.h1ff {
+    font-family: Impact;
+    font-size: 3.5em;
+}
+
+.hff {
+    font-family: Impact;
+}
+
+hr {
+    border-top: 1px solid rgba(255, 255, 255, .3);
+    border-bottom: none;
+}
+
+body {
+    color: white;
+    background: rgb(86 71 103);
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+}
