@@ -119,7 +119,7 @@ export function works() {
                 desc: '超簡單 MVVM+JSDOM SPA 前端框架',
                 commments: '2025/08/01',
                 buttonlinks: {
-                    'github': 'https://github.com/highQ77/chill.js-v0.2',
+                    'github': 'https://github.com/highQ77/highQ77.github.io',
                     'demo': 'chill',
                 }
             },
