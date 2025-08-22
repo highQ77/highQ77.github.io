@@ -1,0 +1,20 @@
+dev priority:
+
+🟢 對話框系統-便捷的序列文字顯示 dialogue system : await mode 
+🟢 輪播 banner carousel
+🟢 多顏色按鈕設計 color buttons design
+🟢 router.onSwitchView() 自動刪除 pub/sub 的訂閱 (進入頁面紀錄 router path)
+🟢 demo router re-render issue
+🟢 button click style
+🟢 SYSTEM_LOOP
+🟢 global css settings { 'body': '{xxxxxx}' } justifyContent => jusity-content
+
+🔴 slider mouse control 很重要 @_@
+🟠 暫時不考慮手機版的操作
+🟠 scroller high performance reuse list item design - hard
+🟠 anitool - popup menu 模組 (或是 contextmenu)
+🟠 sceneTransition: (jsdom) => new SceneTransition(jsdom) 調整
+🟠 部分過往作品更新，以 chill.js 為基底開發 (web tools)
+
+🟡 william77 x Works - 網址需調整至 https://highq77.github.io/
+🟡 chill.js 網站視覺更新

@@ -1,2 +1,1 @@
-# highQ77.github.io
-William77 x Works
+# william77 personal works
