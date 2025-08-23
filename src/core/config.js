@@ -200,7 +200,7 @@ import { ui } from "../page/official/ui.js"
 import { uipro } from "../page/official/uipro.js"
 
 // your website
-import { empty } from "../page/yourapp/empty.js" // <--- add your own page
+import { yourapp } from "../page/yourapp/yourapp.js" // <--- add your own page
 
 // official website (可註解)
 import { anitool } from "../page/anitool/anitool.js"
@@ -219,7 +219,7 @@ export const router_config = {
     // official animation tool (可註解)
     'anitool': { jsdom_tpl: anitool },
     // add your page here (依需要更名)
-    'empty': { jsdom_tpl: empty }
+    'yourapp': { jsdom_tpl: yourapp }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -232,15 +232,15 @@ export const store_config = {
             featureList: [
                 {
                     title: '著重於 webapp / webgame / gitpage 快速開發',
-                    desc: '本框架的重點不是在 SSR 渲染與 SEO 的建構，而是一個簡單強悍的 SPA 網頁應用程式開發框架 - 適用於網頁應用程式與網頁遊戲開發。好處是一個入口點，可以打造多個應用程式，很適合在 gitpage 發布作品',
+                    desc: '本框架的重點不是在 SSR 渲染與 SEO 的建構，而是一個簡單強悍的 SPA 網頁應用程式開發框架 - 適用於網頁應用程式與網頁遊戲開發。好處是一個入口點，可以打造多個應用程式，很適合在 gitpage 發布作品。例如 http://xxx/#/app01, http://xxx/#/app02 代表兩個不同的應用程式，router 設定好即可',
                 },
                 {
                     title: '學習曲線低的可愛 🤪',
-                    desc: '只要會基本的 html / css / js 的概念，就能開始進行開發',
+                    desc: '只要會基本的 html / css / js 的概念，就能開始進行開發。在開始專案前，不用急著把 src/page 下的資料夾清空，yourapp 是你的程式進入點，網址是 http://xxx/#/yourapp，可依需要更名：1. 將 src/page/yourapp 資料夾更名。 2. src/page/yourapp/yourapp.js 檔案更名。 3. src/core/config.js 找尋 router_config 設定即可',
                 },
                 {
                     title: '透過 MVVM 設計，簡化開發困難度',
-                    desc: '使用 node.vm_list 可以快速同步 model 與視圖的狀態，例如操作陣列如 list[0] = 10，則第 0 個視圖也會自動更新其內的文字為 10',
+                    desc: '使用 node.vm_list 生成 ViewModel 物件可以快速同步 model 與視圖的狀態，而只要你會陣列的操作方法即可，譬如 vmData.push, vmData[0] = 10 等等，其中 vmData 為 node.proxy([1,2,3]), view 為 (item)=>node.div().setText(item) 的方法',
                 },
                 {
                     title: '與傳統 html 差別在標籤生成全在 js 裡完成',
@@ -260,19 +260,19 @@ export const store_config = {
                 },
                 {
                     title: '不需要管生命週期',
-                    desc: `在目前的框架設計上，並不需要管裡生命週期，僅有切換路由視圖 router view 在必要時，用 jsdom.onGlobalEvent (GlobalEvent.SYSTEM_LEAVE_ROUTER_VIEW, result => { ... }) 來處理`,
+                    desc: `在目前的框架設計上，並不需要管裡生命週期，僅有切換路由視圖 router view 在必要時，用 jsdom.onGlobalEvent (GlobalEvent.SYSTEM_JSDOM_READY, result => { ... } JSDOM 掛載完畢與 GlobalEvent.SYSTEM_LEAVE_ROUTER_VIEW, result => { ... }) router view 轉換來處理`,
                 },
                 {
                     title: '不同層級的元件溝通簡單，透過 pub / sub 機制處理',
-                    desc: '本框架內有 node.pubsub 模組可以使用，在不同層級元件溝通時可以使用，而 pubsub 模組則需要用 node.pubsub.unsubscribe 進行取消訂閱',
+                    desc: '本框架內有 node.pubsub 模組可以使用，在不同層級元件溝通時可以使用，而 pubsub 模組則可依需要手動用 node.pubsub.unsubscribe 進行取消訂閱，基本上 jsdom.onGlobalEvent 的機制也是使用 pubsub，而且以這種方式註冊的事件都會在 router view 切換時自動 unsubsribe',
                 },
                 {
                     title: 'node.xx().on 註冊的方法會在換頁時貼心自動釋放',
-                    desc: '所有以 .on 或 .onGlobalEvent 註冊的事件在離開頁面 ( 切換路由視圖 router view ) 時都會自動清除',
+                    desc: '所有以 .on 或 .onGlobalEvent 註冊的事件在離開頁面 ( 切換路由視圖 router view ) 時都會自動清除，讓開發者可以開心註冊事件，而在 src/core/config.js 裡也可以自訂 global event',
                 },
                 {
                     title: 'node.xx API 提供基礎 ui 與常用函式',
-                    desc: 'node 為主要核心功能提供者',
+                    desc: 'node 為主要核心功能提供者，主要有常用 html 標籤生成功能、常用函式集、View Model 物件、進階 UI 物件、表單物件等等',
                 },
                 {
                     title: 'pro.xx API 提供高級 ui 元件',
@@ -280,7 +280,7 @@ export const store_config = {
                 },
                 {
                     title: 'router 設計簡單直覺無複雜設定',
-                    desc: '請參考 config.js 的 router_config 物件',
+                    desc: '請參考 config.js 的 router_config 物件。僅需要設置 router 路徑與 jsdom 模板即可',
                 },
                 {
                     title: 'store 用於管理全域資料，且畫面切換資料不會消失',

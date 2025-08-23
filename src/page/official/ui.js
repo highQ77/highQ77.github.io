@@ -27,7 +27,6 @@ export function ui() {
 
     // page jsdom
     const jsdom = node.div().setStyle({ marginBottom: '50px' }).setChildren([
-        node.hr().setStyle({ margin: '20px 0' }),
         node.h2().setText('Essential UI'),
         node.div().setText('透過 jsdom 彈指間生成任意 UI 元件，本框架開發複雜的介面相對輕鬆，且方便重複利用與分享給他人')
             .setStyle({ margin: '20px 0', color: '#CCC', background: '#000', padding: '5px', border: '1px solid #666' }),

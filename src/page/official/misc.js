@@ -9,7 +9,6 @@ export function misc() {
 
     // page jsdom
     const jsdom = node.div().setStyle({ marginBottom: '50px' }).setChildren([
-        node.hr().setStyle({ margin: '20px 0' }),
         node.h2().setText('Misc'),
         node.div().setText('全域資料存取與不同層級元件溝通方法')
             .setStyle({ margin: '20px 0', color: '#CCC', background: '#000', padding: '5px', border: '1px solid #666' }),

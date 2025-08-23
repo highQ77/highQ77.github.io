@@ -6,14 +6,14 @@ import { store } from "../../core/store.js"
 export function demo() {
 
     // jsdom
-    const jsdom = node.div().setChildren([
+    const jsdom = node.div().setStyle({ paddingTop: '50px' }).setChildren([
         router.group('demoRouterView', [
             node.button('mvvm', 'chill/demo/mvvm').setText('mvvm'),
             node.button('ui', 'chill/demo/ui').setText('ui'),
             node.button('uipro', 'chill/demo/uipro').setText('ui-pro'),
             node.button('store', 'chill/demo/misc').setText('misc'),
-        ], 'demoRouter').setStyle({ marginTop: '20px' }),
-        node.div('demoRouterView').setStyle({ padding: '5px' })
+        ], 'demoRouter').setStyle({ margin: '20px 20px 0px 20px' }),
+        node.div('demoRouterView').setStyle({ padding: '20px' })
     ])
 
     // from misc page node.pubsub.publish(GlobalEvent.CUSTOM_CHANGE_NAV_BORDER_COLOR, xxData)

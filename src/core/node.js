@@ -27,6 +27,8 @@ let sysClassNames = {
     '.stop-select': { userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none', MsUserSelect: 'none' },
 };
 
+appendClasses(sysClassNames)
+
 function appendClasses(classes) {
     // apend default style
     Object.keys(classes).forEach(cssPath => {
@@ -61,20 +63,9 @@ function appendClassNameStyle(style) {
     !styleObj.parentNode && document.body.appendChild(styleObj)
 }
 
-(() => {
-    requestAnimationFrame(() => {
-        appendClasses(sysClassNames)
-        // user define here
-        gradientBackgroundAnimation('ani-bg-default')
-        gradientBackgroundAnimation('ani-bg-dark', '270deg', '12s', ['#0C0C0C', '#222222'])
-    })
-})()
-
-
 /** 🟢 define gradient background animation with className */
 function gradientBackgroundAnimation(className, rotateDegree = '237deg', speed = '18s', colors = ['#8a7946ff', '#9eab8f', '#aaab8fff']) {
-    appendClassNameStyle(
-        `
+    appendClassNameStyle(`
         .${className}{
             background: linear-gradient(${rotateDegree}, ${colors.join(',')});
             background-size: 240% 240%;
@@ -87,6 +78,9 @@ function gradientBackgroundAnimation(className, rotateDegree = '237deg', speed =
         }
     `)
 }
+
+// user define here
+gradientBackgroundAnimation('ani-bg-default', '270deg', '8s', ['#335e66ff', '#520096ff'])
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2304,7 +2298,7 @@ function scroller(nodeId, cssWidth, cssHeight, cssThumbColor, cssTrackColor, css
         ]),
         node.div(id + '__barH').setStyle({ zIndex: zIndex.scrollerbar, position: 'absolute', background: cssTrackColor || theme.scroller.trackColor, borderRadius: '10px', width: '100%', height: theme.scroller.barWidth, top: `calc(${cssHeight} + ${cssTrackHOffsetY})`, transition: 'opacity .2s', opacity: '0', overflow: 'hidden' }).setChildren([
             node.div(id + '__thumbH').setStyle({ position: 'absolute', background: cssThumbColor || theme.scroller.thumbColor, borderRadius: '10px', width: '100%', height: theme.scroller.thumbWidth, bottom: '0px', top: '1px' })
-        ])
+        ]),
     ])
     const barV = jsdom.getChildById(id + '__barV')
     const thumbV = jsdom.getChildById(id + '__thumbV')
@@ -2347,23 +2341,60 @@ function scroller(nodeId, cssWidth, cssHeight, cssThumbColor, cssTrackColor, css
         return { contentHeight, contentWidth, contentNodeHeight, contentNodeWidth }
     }
 
+    // 🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠 h-bar v-bar 共存操作時有異常待修 && app.on('xxx' 應該刪除當 mouse up
+    let diffY = 0
+    let diffX = 0
+    let app = node.app()
+    let isMouseDown = false
+    let appDefaultCss = node.app().getClass()
+    let getWrapperRect = () => wrapper.getHtmlTag().getBoundingClientRect()
+    let getThumbVRect = () => thumbV.getHtmlTag().getBoundingClientRect()
+    let getThumbHRect = () => thumbH.getHtmlTag().getBoundingClientRect()
+    thumbV.on('mousedown', e => { diffY = getWrapperRect().top + getThumbVRect().height, isMouseDown = true, app.setStyle({ cursor: 'pointer' }).setClass(appDefaultCss + ' stop-select') })
+    thumbH.on('mousedown', e => { diffX = getWrapperRect().left + getThumbHRect().width, isMouseDown = true, app.setStyle({ cursor: 'pointer' }).setClass(appDefaultCss + ' stop-select') })
+    app.on('mousemove', e => { if (!isMouseDown) diffY = e.pageY; isMouseDown && scrollfunc(e) })
+    app.on('mouseup', e => { isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss) })
+    app.on('mouseleave', _ => { isMouseDown = false, app.setStyle({ cursor: 'auto' }) })
+
     const scrollfunc = e => {
         let { contentHeight, contentWidth, contentNodeHeight, contentNodeWidth } = getDimension()
 
         // thumbV
         let ratioV = contentHeight / contentNodeHeight
         let top = wrapper.getHtmlTag().scrollTop * ratioV
-        let emptyspaceH = contentHeight * (1 - ratioV) - 1.5
+        let emptyspaceV = contentHeight * (1 - ratioV) - 1.5
         if (top < 1.5) top = 1.5
-        else if (top > emptyspaceH) top = emptyspaceH
+        else if (top > emptyspaceV) top = emptyspaceV
+
+        if (e && e.pageY > -1 && !e.enter) {
+            let offsetY = e.pageY - diffY
+            let tvh = parseInt(thumbV.getHtmlTag().style.height)
+            let h = getWrapperRect().height
+            emptyspaceV = h - tvh
+            if (offsetY > 0) offsetY = 0
+            else if (offsetY < -emptyspaceV) offsetY = -emptyspaceV
+            let top = (emptyspaceV + offsetY) / ratioV
+            wrapper.getHtmlTag().scrollTop = top
+        }
         thumbV.setStyle({ height: contentHeight * ratioV + 'px', top: top + 'px' })
 
         // thumbH
         let ratioH = contentWidth / contentNodeWidth
         let left = wrapper.getHtmlTag().scrollLeft * ratioH
-        let emptyspaceV = contentWidth * (1 - ratioH) - 1.5
+        let emptyspaceH = contentWidth * (1 - ratioH) - 1.5
         if (left < 1.5) left = 1.5
-        else if (left > emptyspaceV) left = emptyspaceV
+        else if (left > emptyspaceH) left = emptyspaceH
+
+        if (e && e.pageX > -1 && !e.enter) {
+            let offsetX = e.pageX - diffX
+            let thh = parseInt(thumbH.getHtmlTag().style.width)
+            let v = getWrapperRect().width
+            emptyspaceH = v - thh
+            if (offsetX > 0) offsetX = 0
+            else if (offsetX < -emptyspaceH) offsetX = -emptyspaceH
+            let left = (emptyspaceH + offsetX) / ratioH
+            wrapper.getHtmlTag().scrollLeft = left
+        }
         thumbH.setStyle({ width: contentWidth * ratioH + 'px', left: left + 'px' })
 
         // content overflow 
@@ -2417,7 +2448,7 @@ function scroller(nodeId, cssWidth, cssHeight, cssThumbColor, cssTrackColor, css
 
     // scroll events
     wrapper.on('scroll', scrollfunc)
-    jsdom.on('mouseenter', scrollfunc)
+    jsdom.on('mouseenter', e => { e.enter = 'enter', scrollfunc(e) })
     jsdom.on('mouseleave', () => {
         barV.setStyle({ opacity: '0' })
         barH.setStyle({ opacity: '0' })
@@ -2564,11 +2595,20 @@ function splitterH(nodeId, cssWidth, initPercentage, topNode, bottomNode) {
  */
 function sliderV(nodeId, cssHeight, initVal, minVal, maxVal, callback) {
 
+    let setVal = (val) => {
+        let total = maxVal - minVal
+        let ratio = (initVal - minVal) / total
+        let rect = jsdom.getHtmlTag().getBoundingClientRect()
+        thumb.setStyle({ top: (rect.height * (1 - ratio) - 5) + 'px' })
+        thumbInfo.setText(Math.round(minVal + total * ratio))
+        callback && callback({ ratio, currentVal: initVal, minVal, maxVal })
+    }
+
     let jsdom = node.div(nodeId ? nodeId : '')
     let id = jsdom.getNodeId()
     jsdom.setStyle({ display: 'inline-flex', alignItems: 'center', position: 'relative', width: '2px', height: cssHeight, background: theme.slider.trackColor, margin: '0px 20px' }).setChildren([
-        node.div(id + 'thumb').setStyle({ position: 'absolute', left: '-4px', top: '-4px', background: theme.slider.thumbColor, width: '10px', height: '10px', borderRadius: '100%', cursor: 'grab', outline: '1.5px solid ' + theme.slider.thumbOutlineColor }).setChildren([
-            node.div(id + 'thumbInfo').setStyle({ display: 'none', position: 'absolute', transform: 'translate(-25%)', left: '1.5em', top: '-9px', ...theme.slider.thumbInfo }).setText('0')
+        node.div(id + '__thumb').setStyle({ position: 'absolute', left: '-4px', top: '-4px', background: theme.slider.thumbColor, width: '10px', height: '10px', borderRadius: '100%', cursor: 'grab', outline: '1.5px solid ' + theme.slider.thumbOutlineColor }).setChildren([
+            node.div(id + '__thumbInfo').setStyle({ display: 'none', position: 'absolute', transform: 'translate(-25%)', left: '1.5em', top: '-9px', ...theme.slider.thumbInfo }).setText('0')
         ])
     ])
 
@@ -2585,8 +2625,8 @@ function sliderV(nodeId, cssHeight, initVal, minVal, maxVal, callback) {
         callback && callback({ ratio: 1 - ratio, currentVal, minVal, maxVal })
     }
 
-    let thumb = jsdom.getChildById(id + 'thumb')
-    let thumbInfo = jsdom.getChildById(id + 'thumbInfo')
+    let thumb = jsdom.getChildById(id + '__thumb')
+    let thumbInfo = jsdom.getChildById(id + '__thumbInfo')
 
     let app = node.app()
     let isMouseDown = false
@@ -2596,14 +2636,7 @@ function sliderV(nodeId, cssHeight, initVal, minVal, maxVal, callback) {
     app.on('mouseup', e => { isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss), thumbInfo.setStyle({ display: 'none' }) })
     app.on('mouseleave', _ => { isMouseDown = false, app.setStyle({ cursor: 'auto' }), thumbInfo.setStyle({ display: 'none' }) })
 
-    requestAnimationFrame(() => {
-        let total = maxVal - minVal
-        let ratio = (initVal - minVal) / total
-        let rect = jsdom.getHtmlTag().getBoundingClientRect()
-        thumb.setStyle({ top: (rect.height * (1 - ratio) - 5) + 'px' })
-        thumbInfo.setText(Math.round(minVal + total * ratio))
-        callback && callback({ ratio, currentVal: initVal, minVal, maxVal })
-    })
+    requestAnimationFrame(() => setVal(initVal))
 
     return jsdom
 }
@@ -2620,11 +2653,20 @@ function sliderV(nodeId, cssHeight, initVal, minVal, maxVal, callback) {
  */
 function sliderH(nodeId, cssWidth, initVal, minVal, maxVal, callback) {
 
+    let setVal = (val) => {
+        let total = maxVal - minVal
+        let ratio = (val - minVal) / total
+        let rect = jsdom.getHtmlTag().getBoundingClientRect()
+        thumb.setStyle({ left: (rect.width * ratio - 5) + 'px' })
+        thumbInfo.setText(Math.round(minVal + total * ratio))
+        callback && callback({ ratio, currentVal: val, minVal, maxVal })
+    }
+
     let jsdom = node.div(nodeId ? nodeId : '')
     let id = jsdom.getNodeId()
     jsdom.setStyle({ display: 'inline-flex', alignItems: 'center', position: 'relative', width: cssWidth, height: '2px', background: theme.slider.trackColor, margin: '20px 0px' }).setChildren([
-        node.div(id + 'thumb').setStyle({ position: 'absolute', left: '-4px', top: '-4px', background: theme.slider.thumbColor, width: '10px', height: '10px', borderRadius: '100%', cursor: 'grab', outline: '1.5px solid ' + theme.slider.thumbOutlineColor }).setChildren([
-            node.div(id + 'thumbInfo').setStyle({ display: 'none', position: 'absolute', transform: 'translate(-25%)', left: '0px', top: '-2em', ...theme.slider.thumbInfo }).setText('0')
+        node.div(id + '__thumb').setStyle({ position: 'absolute', left: '-4px', top: '-4px', background: theme.slider.thumbColor, width: '10px', height: '10px', borderRadius: '100%', cursor: 'grab', outline: '1.5px solid ' + theme.slider.thumbOutlineColor }).setChildren([
+            node.div(id + '__thumbInfo').setStyle({ display: 'none', position: 'absolute', transform: 'translate(-25%)', left: '0px', top: '-2em', ...theme.slider.thumbInfo }).setText('0')
         ])
     ])
 
@@ -2641,8 +2683,8 @@ function sliderH(nodeId, cssWidth, initVal, minVal, maxVal, callback) {
         callback && callback({ ratio, currentVal, minVal, maxVal })
     }
 
-    let thumb = jsdom.getChildById(id + 'thumb')
-    let thumbInfo = jsdom.getChildById(id + 'thumbInfo')
+    let thumb = jsdom.getChildById(id + '__thumb')
+    let thumbInfo = jsdom.getChildById(id + '__thumbInfo')
 
     let app = node.app()
     let isMouseDown = false
@@ -2652,14 +2694,7 @@ function sliderH(nodeId, cssWidth, initVal, minVal, maxVal, callback) {
     app.on('mouseup', e => { isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss), thumbInfo.setStyle({ display: 'none' }) })
     app.on('mouseleave', _ => { isMouseDown = false, app.setStyle({ cursor: 'auto' }), thumbInfo.setStyle({ display: 'none' }) })
 
-    requestAnimationFrame(() => {
-        let total = maxVal - minVal
-        let ratio = (initVal - minVal) / total
-        let rect = jsdom.getHtmlTag().getBoundingClientRect()
-        thumb.setStyle({ left: (rect.width * ratio - 5) + 'px' })
-        thumbInfo.setText(Math.round(minVal + total * ratio))
-        callback && callback({ ratio, currentVal: initVal, minVal, maxVal })
-    })
+    requestAnimationFrame(() => setVal(initVal))
 
     return jsdom
 }

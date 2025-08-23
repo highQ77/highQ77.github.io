@@ -21,7 +21,6 @@ export function uipro() {
 
     // page jsdom
     const jsdom = node.div().setStyle({ marginBottom: '50px' }).setChildren([
-        node.hr().setStyle({ margin: '20px 0' }),
         node.h2().setText('UI Pro'),
         node.div().setText('透過 jsdom 完成高階元件設計')
             .setStyle({ margin: '20px 0', color: '#CCC', background: '#000', padding: '5px', border: '1px solid #666' }),
@@ -37,7 +36,7 @@ export function uipro() {
                 node.div().setStyle({ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '30px', width: '100%', height: '100%', background: 'rgba(255, 255, 255, 0.12)' }).setChildren([
                     node.divimg('', 'swril.jpg').setText('Gen-Art').setStyle({ fontFamily: 'impact', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '200px', color: '#FFFFFF66', border: '5px solid #000' })
                 ]),
-                node.div().setStyle({ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '30px', width: '100%', height: '100%' }).setClass('ani-bg-default').setChildren([
+                node.div().setStyle({ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '30px', width: '100%', height: '100%', background: '#eae6ccff' }).setChildren([
                     node.div().setText('chill.js').setStyle({ color: 'black', fontFamily: 'Serif', fontSize: '60px', borderBottom: '35px solid black', borderTop: '35px solid black' })
                 ]),
             ])

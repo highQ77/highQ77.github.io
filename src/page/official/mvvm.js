@@ -14,7 +14,6 @@ export function mvvm() {
 
     // jsdoms
     const jsdom = node.div().setChildren([
-        node.hr().setStyle({ margin: '20px 0' }),
         node.h2().setText('MVVM'),
         node.div().setText('透過 MVVM 設計的機制，讓您方便設計強健的應用程式，採用 Model Operation，可以快速讓資料與介面進行同步更新').setStyle({ margin: '20px 0', color: '#CCC', background: '#000', padding: '5px', border: '1px solid #666' }),
         node.hr().setStyle({ margin: '20px 0' }),

@@ -8,13 +8,19 @@ dev priority:
 🟢 button click style
 🟢 SYSTEM_LOOP
 🟢 global css settings { 'body': '{xxxxxx}' } justifyContent => jusity-content
+🟢 william77 x Works - 網址需調整至 https://highq77.github.io/
 
-🔴 slider mouse control 很重要 @_@
+🔴 slider mouse control 很重要 @_@ hard  // 🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠 h-bar v-bar 共存操作時有異常待修 && app.on('xxx' 應該刪除當 mouse up
+
 🟠 暫時不考慮手機版的操作
 🟠 scroller high performance reuse list item design - hard
-🟠 anitool - popup menu 模組 (或是 contextmenu)
-🟠 sceneTransition: (jsdom) => new SceneTransition(jsdom) 調整
 🟠 部分過往作品更新，以 chill.js 為基底開發 (web tools)
-
-🟡 william77 x Works - 網址需調整至 https://highq77.github.io/
+🟡 anitool - popup menu 模組 (或是 contextmenu)
+🟡 sceneTransition: (jsdom) => new SceneTransition(jsdom) 調整
 🟡 chill.js 網站視覺更新
+🟡 web tools (chill.js)
+🟡 documentation 基本操作手冊
+🟡 theme 應該 backup ，換 app 要將 theme 還原
+🟡 hljs 語法高亮
+🟡 sprite 物件設計 (game dev)
+
