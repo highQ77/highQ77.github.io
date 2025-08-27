@@ -2341,19 +2341,18 @@ function scroller(nodeId, cssWidth, cssHeight, cssThumbColor, cssTrackColor, css
         return { contentHeight, contentWidth, contentNodeHeight, contentNodeWidth }
     }
 
-    // 🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠 h-bar v-bar 共存操作時有異常待修 && app.on('xxx' 應該刪除當 mouse up
-    let diffY = 0
-    let diffX = 0
+    let isV = false
+    let isH = false
     let app = node.app()
     let isMouseDown = false
     let appDefaultCss = node.app().getClass()
     let getWrapperRect = () => wrapper.getHtmlTag().getBoundingClientRect()
     let getThumbVRect = () => thumbV.getHtmlTag().getBoundingClientRect()
     let getThumbHRect = () => thumbH.getHtmlTag().getBoundingClientRect()
-    thumbV.on('mousedown', e => { diffY = getWrapperRect().top + getThumbVRect().height, isMouseDown = true, app.setStyle({ cursor: 'pointer' }).setClass(appDefaultCss + ' stop-select') })
-    thumbH.on('mousedown', e => { diffX = getWrapperRect().left + getThumbHRect().width, isMouseDown = true, app.setStyle({ cursor: 'pointer' }).setClass(appDefaultCss + ' stop-select') })
-    app.on('mousemove', e => { if (!isMouseDown) diffY = e.pageY; isMouseDown && scrollfunc(e) })
-    app.on('mouseup', e => { isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss) })
+    barV.on('mousedown', e => { isV = true, isMouseDown = true, app.setStyle({ cursor: 'pointer' }).setClass(appDefaultCss + ' stop-select'), scrollfunc(e) })
+    barH.on('mousedown', e => { isH = true, isMouseDown = true, app.setStyle({ cursor: 'pointer' }).setClass(appDefaultCss + ' stop-select'), scrollfunc(e) })
+    app.on('mousemove', e => { isMouseDown && scrollfunc(e) })
+    app.on('mouseup', e => { isV = false, isH = false, isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss) })
     app.on('mouseleave', _ => { isMouseDown = false, app.setStyle({ cursor: 'auto' }) })
 
     const scrollfunc = e => {
@@ -2366,15 +2365,11 @@ function scroller(nodeId, cssWidth, cssHeight, cssThumbColor, cssTrackColor, css
         if (top < 1.5) top = 1.5
         else if (top > emptyspaceV) top = emptyspaceV
 
-        if (e && e.pageY > -1 && !e.enter) {
-            let offsetY = e.pageY - diffY
-            let tvh = parseInt(thumbV.getHtmlTag().style.height)
-            let h = getWrapperRect().height
-            emptyspaceV = h - tvh
-            if (offsetY > 0) offsetY = 0
-            else if (offsetY < -emptyspaceV) offsetY = -emptyspaceV
-            let top = (emptyspaceV + offsetY) / ratioV
-            wrapper.getHtmlTag().scrollTop = top
+        if (isV && e && e.pageY > -1) {
+            let tvRect = getThumbVRect()
+            let wRect = getWrapperRect()
+            let offsetY = e.pageY - (wRect.top + tvRect.height / 2)
+            wrapper.getHtmlTag().scrollTop = offsetY / ratioV
         }
         thumbV.setStyle({ height: contentHeight * ratioV + 'px', top: top + 'px' })
 
@@ -2385,15 +2380,11 @@ function scroller(nodeId, cssWidth, cssHeight, cssThumbColor, cssTrackColor, css
         if (left < 1.5) left = 1.5
         else if (left > emptyspaceH) left = emptyspaceH
 
-        if (e && e.pageX > -1 && !e.enter) {
-            let offsetX = e.pageX - diffX
-            let thh = parseInt(thumbH.getHtmlTag().style.width)
-            let v = getWrapperRect().width
-            emptyspaceH = v - thh
-            if (offsetX > 0) offsetX = 0
-            else if (offsetX < -emptyspaceH) offsetX = -emptyspaceH
-            let left = (emptyspaceH + offsetX) / ratioH
-            wrapper.getHtmlTag().scrollLeft = left
+        if (isH && e && e.pageX > -1) {
+            let thRect = getThumbHRect()
+            let wRect = getWrapperRect()
+            let offsetX = e.pageX - (wRect.left + thRect.width / 2)
+            wrapper.getHtmlTag().scrollLeft = offsetX / ratioH
         }
         thumbH.setStyle({ width: contentWidth * ratioH + 'px', left: left + 'px' })
 
@@ -2448,7 +2439,7 @@ function scroller(nodeId, cssWidth, cssHeight, cssThumbColor, cssTrackColor, css
 
     // scroll events
     wrapper.on('scroll', scrollfunc)
-    jsdom.on('mouseenter', e => { e.enter = 'enter', scrollfunc(e) })
+    jsdom.on('mouseenter', scrollfunc)
     jsdom.on('mouseleave', () => {
         barV.setStyle({ opacity: '0' })
         barH.setStyle({ opacity: '0' })
