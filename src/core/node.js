@@ -3,17 +3,26 @@ import { GlobalEvent, rwdMap, zIndex, theme } from "./config.js"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// resize window event
+// window event
 {
-    window.addEventListener('resize', e => {
-        node.pubsub.publish(GlobalEvent.SYSTEM_RESIZE_WINDOW, e)
-    })
-
     let loop = () => {
         node.pubsub.publish(GlobalEvent.SYSTEM_LOOP)
         requestAnimationFrame(loop)
     }
     requestAnimationFrame(loop)
+
+    window.addEventListener('resize', e => {
+        node.pubsub.publish(GlobalEvent.SYSTEM_RESIZE_WINDOW, e)
+    })
+    window.addEventListener('mousemove', e => {
+        node.pubsub.publish(GlobalEvent.SYSTEM_MOUSE_MOVE, e)
+    })
+    window.addEventListener('mouseleave', e => {
+        node.pubsub.publish(GlobalEvent.SYSTEM_MOUSE_LEAVE, e)
+    })
+    window.addEventListener('mouseup', e => {
+        node.pubsub.publish(GlobalEvent.SYSTEM_MOUSE_UP, e)
+    })
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2351,9 +2360,9 @@ function scroller(nodeId, cssWidth, cssHeight, cssThumbColor, cssTrackColor, css
     let getThumbHRect = () => thumbH.getHtmlTag().getBoundingClientRect()
     barV.on('mousedown', e => { isV = true, isMouseDown = true, app.setStyle({ cursor: 'pointer' }).setClass(appDefaultCss + ' stop-select'), scrollfunc(e) })
     barH.on('mousedown', e => { isH = true, isMouseDown = true, app.setStyle({ cursor: 'pointer' }).setClass(appDefaultCss + ' stop-select'), scrollfunc(e) })
-    app.on('mousemove', e => { isMouseDown && scrollfunc(e) })
-    app.on('mouseup', e => { isV = false, isH = false, isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss) })
-    app.on('mouseleave', _ => { isMouseDown = false, app.setStyle({ cursor: 'auto' }) })
+    jsdom.onGlobalEvent(GlobalEvent.SYSTEM_MOUSE_MOVE, e => { isMouseDown && scrollfunc(e) })
+    jsdom.onGlobalEvent(GlobalEvent.SYSTEM_MOUSE_UP, e => { isV = false, isH = false, isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss) })
+    jsdom.onGlobalEvent(GlobalEvent.SYSTEM_MOUSE_LEAVE, _ => { isMouseDown = false, app.setStyle({ cursor: 'auto' }) })
 
     const scrollfunc = e => {
         let { contentHeight, contentWidth, contentNodeHeight, contentNodeWidth } = getDimension()
@@ -2623,9 +2632,9 @@ function sliderV(nodeId, cssHeight, initVal, minVal, maxVal, callback) {
     let isMouseDown = false
     let appDefaultCss = node.app().getClass()
     thumb.on('mousedown', e => { isMouseDown = true, app.setStyle({ cursor: 'pointer' }).setClass(appDefaultCss + ' stop-select'), thumbInfo.setStyle({ display: 'block' }) })
-    app.on('mousemove', e => { isMouseDown && update(e) })
-    app.on('mouseup', e => { isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss), thumbInfo.setStyle({ display: 'none' }) })
-    app.on('mouseleave', _ => { isMouseDown = false, app.setStyle({ cursor: 'auto' }), thumbInfo.setStyle({ display: 'none' }) })
+    jsdom.onGlobalEvent(GlobalEvent.SYSTEM_MOUSE_MOVE, e => { isMouseDown && update(e) })
+    jsdom.onGlobalEvent(GlobalEvent.SYSTEM_MOUSE_UP, e => { isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss), thumbInfo.setStyle({ display: 'none' }) })
+    jsdom.onGlobalEvent(GlobalEvent.SYSTEM_MOUSE_LEAVE, _ => { isMouseDown = false, app.setStyle({ cursor: 'auto' }), thumbInfo.setStyle({ display: 'none' }) })
 
     requestAnimationFrame(() => setVal(initVal))
 
@@ -2681,9 +2690,9 @@ function sliderH(nodeId, cssWidth, initVal, minVal, maxVal, callback) {
     let isMouseDown = false
     let appDefaultCss = node.app().getClass()
     thumb.on('mousedown', e => { isMouseDown = true, app.setStyle({ cursor: 'pointer' }).setClass(appDefaultCss + ' stop-select'), thumbInfo.setStyle({ display: 'block' }) })
-    app.on('mousemove', e => { isMouseDown && update(e) })
-    app.on('mouseup', e => { isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss), thumbInfo.setStyle({ display: 'none' }) })
-    app.on('mouseleave', _ => { isMouseDown = false, app.setStyle({ cursor: 'auto' }), thumbInfo.setStyle({ display: 'none' }) })
+    jsdom.onGlobalEvent(GlobalEvent.SYSTEM_MOUSE_MOVE, e => { isMouseDown && update(e) })
+    jsdom.onGlobalEvent(GlobalEvent.SYSTEM_MOUSE_UP, e => { isMouseDown = false, app.setStyle({ cursor: 'auto' }).setClass(appDefaultCss), thumbInfo.setStyle({ display: 'none' }) })
+    jsdom.onGlobalEvent(GlobalEvent.SYSTEM_MOUSE_LEAVE, _ => { isMouseDown = false, app.setStyle({ cursor: 'auto' }), thumbInfo.setStyle({ display: 'none' }) })
 
     requestAnimationFrame(() => setVal(initVal))
 

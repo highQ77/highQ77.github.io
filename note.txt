@@ -10,8 +10,6 @@ dev priority:
 🟢 global css settings { 'body': '{xxxxxx}' } justifyContent => jusity-content
 🟢 william77 x Works - 網址需調整至 https://highq77.github.io/
 
-🔴 slider mouse control 很重要 @_@ hard  // 🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠🟠 h-bar v-bar 共存操作時有異常待修 && app.on('xxx' 應該刪除當 mouse up
-
 🟠 暫時不考慮手機版的操作
 🟠 scroller high performance reuse list item design - hard
 🟠 部分過往作品更新，以 chill.js 為基底開發 (web tools)

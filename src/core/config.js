@@ -172,6 +172,14 @@ const system_event_list = {
     SYSTEM_LEAVE_ROUTER_VIEW: 'system_leave_router_view',
     /** 當縮放視窗 on window resize */
     SYSTEM_RESIZE_WINDOW: 'system_resize_window',
+
+    /** 當滑鼠在全畫面移動 on mouse move in window */
+    SYSTEM_MOUSE_MOVE: 'system_mouse_move',
+    /** 當滑鼠離開視窗 on mouse leave window */
+    SYSTEM_MOUSE_LEAVE: 'system_mouse_leave',
+    /** 當滑鼠放開 on mouse up */
+    SYSTEM_MOUSE_UP: 'system_mouse_up',
+
     /** 迴圈事件 loop event */
     SYSTEM_LOOP: 'system_loop',
 }
