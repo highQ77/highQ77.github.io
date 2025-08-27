@@ -26,7 +26,7 @@ export function anitool() {
             menuItem('item').on('click', (_, t) => { t.getParent().getParent().setStyle({ display: 'none' }) }),
             menuItem('item').on('click', (_, t) => { t.getParent().getParent().setStyle({ display: 'none' }) }),
             node.hr(),
-            menuItem('chill.js').on('click', (_, t) => { t.getParent().setStyle({ display: 'none' }) }),
+            menuItem('chill.js').on('click', (_, t) => { t.getParent().getParent().setStyle({ display: 'none' }) }),
         ])
     ]).on('mouseleave', (e, t) => { t.setStyle({ display: 'none' }) })
 
