@@ -12,7 +12,7 @@ export function yourapp() {
                     node.div().setText('Chill.js v0.3').setStyle({ fontFamily: 'impact', color: 'white', fontSize: '35px' })
                 ))
             }),
-            node.div().setText('To start your project, edit this page in src/page/yourapp/empty.js').setStyle({ margin: '20px 0', color: 'rgb(187, 253, 111)' }),
+            node.div().setText('To start your project, edit this page in src/page/yourapp/yourapp.js').setStyle({ margin: '20px 0', color: 'rgb(187, 253, 111)' }),
         ])
     ])
     return jsdom
