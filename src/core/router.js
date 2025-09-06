@@ -13,7 +13,7 @@ export let router = {
         requestAnimationFrame(popstate)
     },
     /** 跳轉指定路由頁面 go to new page */
-    async go(pageId, sceneTransition) {
+    async go(pageId, sceneTransition, isReplace) {
         if (!pageId) return
         currentPageId = pageId
         let loc = location.href.split('/#/')[1]
@@ -24,7 +24,10 @@ export let router = {
         if (loc.indexOf(pageId) > -1 && (loc_sp.length != pid_sp.length)) return // compare path
         pageId = router_config[pageId].default || pageId // if u have default page
         let url = location.protocol + '//' + location.host + '/#/' + pageId
-        history.pushState({}, '', url);
+        if (isReplace)
+            history.replaceState({}, '', url)
+        else
+            history.pushState({}, '', url);
         if (sceneTransition) {
             await sceneTransition.doTransition(() => {
                 window.dispatchEvent(new Event('popstate'))

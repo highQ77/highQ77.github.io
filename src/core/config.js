@@ -199,23 +199,33 @@ export let GlobalEvent = {
 // ---- 請依需求請註解下方 ----
 
 // chill website (可註解)
-import { chill } from "../page/official/chill.js"
-import { demo } from "../page/official/demo.js"
-import { home } from "../page/official/home.js"
-import { mvvm } from "../page/official/mvvm.js"
-import { misc } from "../page/official/misc.js"
-import { ui } from "../page/official/ui.js"
-import { uipro } from "../page/official/uipro.js"
+import { chill } from "../page/official/chill/chill.js"
+import { demo } from "../page/official/chill/demo.js"
+import { home } from "../page/official/chill/home.js"
+import { mvvm } from "../page/official/chill/mvvm.js"
+import { misc } from "../page/official/chill/misc.js"
+import { ui } from "../page/official/chill/ui.js"
+import { uipro } from "../page/official/chill/uipro.js"
 
 // your website
 import { yourapp } from "../page/yourapp/yourapp.js" // <--- add your own page
 
 // official website (可註解)
-import { anitool } from "../page/anitool/anitool.js"
-import { works } from "../page/official/works.js"
+import { anitool } from "../page/samples/anitool/anitool.js"
+import { works } from "../page/official/works/works.js"
+import { probeat_game } from "../page/samples/probeat/probeat_game.js"
+import { probeat_home } from "../page/samples/probeat/probeat_home.js"
+import { probeat_result } from "../page/samples/probeat/probeat_result.js"
 
 export const router_config = {
+    // works page
     'works': { jsdom_tpl: works },
+
+    // probeat
+    'probeat_home': { jsdom_tpl: probeat_home },
+    'probeat_game': { jsdom_tpl: probeat_game },
+    'probeat_result': { jsdom_tpl: probeat_result },
+
     // official website (可註解)
     'chill': { jsdom_tpl: chill, default: 'chill/home' },
     'chill/home': { jsdom_tpl: home },
@@ -224,8 +234,10 @@ export const router_config = {
     'chill/demo/ui': { jsdom_tpl: ui },
     'chill/demo/uipro': { jsdom_tpl: uipro },
     'chill/demo/misc': { jsdom_tpl: misc },
+
     // official animation tool (可註解)
     'anitool': { jsdom_tpl: anitool },
+
     // add your page here (依需要更名)
     'yourapp': { jsdom_tpl: yourapp }
 }
@@ -315,5 +327,17 @@ export const store_config = {
         demo: {
             navbar: { borderBottom: `1px solid transparent` }
         }
+    },
+    samples: {
+        probeat: {
+            isAutoPlay: true,
+            score: {
+                miss: 0,
+                bad: 0,
+                good: 0,
+                great: 0,
+                best: 0
+            }
+        },
     }
 }

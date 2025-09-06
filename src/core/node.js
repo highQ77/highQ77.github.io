@@ -88,6 +88,19 @@ function gradientBackgroundAnimation(className, rotateDegree = '237deg', speed =
     `)
 }
 
+function opacityAnimation(className, speed = '2s') {
+    appendClassNameStyle(`
+        .${className}{
+            animation: opacity-ani-${className} ${speed} linear infinite;
+        }
+        @keyframes opacity-ani-${className} {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    `);
+}
+
 // user define here
 gradientBackgroundAnimation('ani-bg-default', '270deg', '8s', ['#335e66ff', '#520096ff'])
 
@@ -354,22 +367,26 @@ class NodeBase {
         this.__parent = null
 
         // remove event
-        this.__eventList.forEach(e => {
-            this.__tag.removeEventListener(e.eventName, e.event)
-            delete e.event.exe
-        })
-        this.__eventList.length = 0
-        delete this.__eventList
+        if (this.__eventList) {
+            this.__eventList.forEach(e => {
+                this.__tag.removeEventListener(e.eventName, e.event)
+                delete e.event.exe
+            })
+            this.__eventList.length = 0
+            delete this.__eventList
+        }
 
         // remove global event
-        this.__globalEventList.forEach(token => {
-            node.pubsub.unsubscribe(token)
-        })
-        this.__globalEventList.length = 0
-        delete this.__globalEventList
+        if (this.__globalEventList) {
+            this.__globalEventList.forEach(token => {
+                node.pubsub.unsubscribe(token)
+            })
+            this.__globalEventList.length = 0
+            delete this.__globalEventList
+        }
 
         // remove tag
-        this.__tag.remove()
+        this.__tag?.remove()
         delete this.__tag
     }
 
@@ -2809,6 +2826,8 @@ export const node = {
     appendClasses,
     /** 漸層背景動畫生成 */
     gradientBackgroundAnimation,
+    /** 閃爍動畫 */
+    opacityAnimation,
     /** 🟢 取得目前頁面所有有 nodeId 的物件，適用於跨不同層級元件呼叫使用 */
     getPageNodes: () => nodes,
     /** 🟢 取得目前頁面指定 nodeId 的物件，適用於跨不同層級元件呼叫使用 */
