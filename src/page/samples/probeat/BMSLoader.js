@@ -1,4 +1,4 @@
-import { BMSParser } from "./bmsParser.js";
+import { BMSParser } from "./BMSParser.js";
 import "./howler.min.js";
 
 export class BMSLoader {
