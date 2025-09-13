@@ -1,3 +1,5 @@
+
+
 export let genart_data = {
     AbstractPaint: {
         params: { nPixelSize: 50, nR: 35, nWidthFactor: .25, nHeightFactor: .1666 },
@@ -162,5 +164,18 @@ export let genart_data = {
     SVGTurb: {
         params: { nFrequency: 0.006, nScale: 50, bRandomChannel: false },
         help: { nFrequency: 'frequency', nScale: 'scale', bRandomChannel: 'random channel flag' },
+    },
+    // ------------
+    Flash: {
+        params: { nCount: 20, nMaxLightWidth: 100 },
+        help: { nCount: 'flash count', nMaxLightWidth: 'flash light width' },
+    },
+    LineSpiral: {
+        params: { nLineWidth: 10, sColor: 'white', nR: .5, nLoopCount: 1000 },
+        help: { nLineWidth: 10, sColor: 'white', nR: .5, nLoopCount: 1000 },
+    },
+    RandomCircles: {
+        params: { nCount: 50, nMaxCircleWidth: 100 },
+        help: { nCount: 50, nMaxCircleWidth: 100 },
     },
 }

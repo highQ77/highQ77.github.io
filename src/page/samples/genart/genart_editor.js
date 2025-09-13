@@ -43,6 +43,9 @@ import { PolyGradient } from "./effectLib/art/PolyGradient.js"
 import { Rain } from "./effectLib/art/Rain.js"
 import { SVGGlass } from "./effectLib/art/SVGGlass.js"
 import { SVGTurb } from "./effectLib/art/SVGTurb.js"
+import { Flash } from "./effectLib/gen/Flash.js"
+import { LineSpiral } from "./effectLib/gen/LineSpiral.js"
+import { RandomCircles } from "./effectLib/gen/RandomCircles.js"
 
 import { genart_data } from "./effectLib/genart_data.js"
 
@@ -125,14 +128,18 @@ export function genart_editor() {
                 node.div().setText('˄').setStyle({ ...btnStyles, border: '1px solid yellowgreen' }).on('click', () => {
                     let idx = layer.getChildren().findIndex(i => i == edit)
                     if (idx > 0) {
+                        exec = edit.getChildById('command').getText() || exec
                         layer.removeChildAt(idx)
-                        layer.addChildAt(editTpl(exec), idx - 1)
+                        let filterName = eval(exec.split('({')[0])
+                        layer.addChildAt(editItem(filterName, exec).edit, idx - 1)
                     }
                 }),
                 node.div().setText('˅').setStyle({ ...btnStyles, border: '1px solid yellowgreen' }).on('click', () => {
                     let idx = layer.getChildren().findIndex(i => i == edit)
+                    exec = edit.getChildById('command').getText() || exec
                     layer.removeChildAt(idx)
-                    layer.addChildAt(editTpl(exec), idx + 1)
+                    let filterName = eval(exec.split('({')[0])
+                    layer.addChildAt(editItem(filterName, exec).edit, idx + 1)
                 }),
             ]),
             node.div('command').setText(exec).setStyle({ display: 'flex', alignItems: 'center' })
@@ -237,43 +244,50 @@ export function genart_editor() {
         render()
     }
 
+    let editItem = (filter, exec) => {
+        let params = genart_data[filter.name].params
+        if (exec) params = JSON.parse(exec.split('(')[1].split(')')[0])
+        let help = genart_data[filter.name].help
+        exec = exec || `${filter.name}(${JSON.stringify(params)})`
+        let edit = editTpl(exec)
+        edit.on('click', () => {
+            edit.getParent().getChildren().forEach(i => i.setStyle({ background: 'transparent' }))
+            edit.setStyle({ background: '#444' })
+            properties.removeChildren()
+            properties.pushChild(node.div().setText(filter.name).setStyle({ lineHeight: '3em', color: 'yellowgreen' }))
+            Object.keys(params).forEach(key => {
+                properties.pushChild(
+                    node.div().setStyle({ display: 'flex', padding: '2px' }).setChildren([
+                        node.div('pk').setStyle({ width: '33%' }).setText(key),
+                        node.div().setStyle({ width: '33%' }).setText(help[key]),
+                        node.div('pv').setStyle({ width: '33%' }).setStyle({ border: '1px solid gray' }).setText(params[key])
+                    ])
+                )
+            })
+            let ps = properties.getChildren().filter((i, idx) => idx > 0)
+            ps.forEach(i => i.getChildById('pv').getHtmlTag().contentEditable = true)
+            ps.forEach((i, idx) => i.getChildById('pv').on('input', (e, t) => {
+                let cmd = edit.getChildById('command')
+                let pobj = {}
+                ps.forEach(i => {
+                    let v = i.getChildById('pv').getText()
+                    if (!isNaN(parseFloat(v[v.length - 1]))) v = parseFloat(i.getChildById('pv').getText())
+                    pobj[i.getChildById('pk').getText()] = v
+                })
+                cmd.setText(`${filter.name}(${JSON.stringify(pobj)})`)
+                params = pobj
+            }))
+            ps.forEach((i, idx) => i.getChildById('pv').on('blur', () => {
+                render()
+            }))
+        })
+        return { edit, exec }
+    }
+
     // effect buttons
     let effectBtns = filter =>
         node.div(filter.name).setText('＋ ' + filter.name).setStyle({ fontSize: '13px', padding: '2px 10px', borderBottom: '1px solid #666', cursor: 'pointer' }).on('click', (e, t) => {
-            let params = genart_data[filter.name].params
-            let help = genart_data[filter.name].help
-            let exec = `${filter.name}(${JSON.stringify(params)})`
-            let edit = editTpl(exec)
-            edit.on('click', () => {
-                edit.getParent().getChildren().forEach(i => i.setStyle({ background: 'transparent' }))
-                edit.setStyle({ background: '#444' })
-                properties.removeChildren()
-                properties.pushChild(node.div().setText(filter.name).setStyle({ lineHeight: '3em', color: 'yellowgreen' }))
-                Object.keys(params).forEach(key => {
-                    properties.pushChild(
-                        node.div().setStyle({ display: 'flex', padding: '2px' }).setChildren([
-                            node.div('pk').setStyle({ width: '33%' }).setText(key),
-                            node.div().setStyle({ width: '33%' }).setText(help[key]),
-                            node.div('pv').setStyle({ width: '33%' }).setStyle({ border: '1px solid gray' }).setText(params[key])
-                        ])
-                    )
-                })
-                let ps = properties.getChildren().filter((i, idx) => idx > 0)
-                ps.forEach(i => i.getChildById('pv').getHtmlTag().contentEditable = true)
-                ps.forEach((i, idx) => i.getChildById('pv').on('input', () => {
-                    let cmd = edit.getChildById('command')
-                    let pobj = {}
-                    ps.forEach(i => {
-                        let v = i.getChildById('pv').getText()
-                        if (!isNaN(parseFloat(v[v.length - 1]))) v = parseFloat(i.getChildById('pv').getText())
-                        pobj[i.getChildById('pk').getText()] = v
-                    })
-                    cmd.setText(`${filter.name}(${JSON.stringify(pobj)})`)
-                }))
-                ps.forEach((i, idx) => i.getChildById('pv').on('blur', () => {
-                    render()
-                }))
-            })
+            let { edit, exec } = editItem(filter)
             layer.pushChild(edit)
             eval(exec)
         })
@@ -321,7 +335,12 @@ export function genart_editor() {
         effectBtns(Rain),
         effectBtns(SVGGlass),
         effectBtns(SVGTurb),
-        node.div().setText('★ comming soon ...').setStyle({ border: '.5px solid yellowgreen', background: '#444', padding: '0px 10px', fontSize: '13px' }),
+        node.div().setText('★ visual gen').setStyle({ border: '.5px solid yellowgreen', background: '#444', padding: '0px 10px', fontSize: '13px' }),
+        effectBtns(Flash),
+        effectBtns(LineSpiral),
+        effectBtns(RandomCircles),
+        // more in future...
+        node.div().setText('more in future...').setStyle({ background: '#444', padding: '0px 10px', fontSize: '13px' }),
     ])
 
 
