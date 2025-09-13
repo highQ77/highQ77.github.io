@@ -221,12 +221,12 @@ import { genart_editor } from "../page/samples/genart/genart_editor.js"
 
 export const router_config = {
 
+    // works page
+    'works': { jsdom_tpl: works },
+
     // genart
     'genart': { jsdom_tpl: genart },
     'genart_editor': { jsdom_tpl: genart_editor },
-
-    // works page
-    'works': { jsdom_tpl: works },
 
     // probeat
     'probeat_home': { jsdom_tpl: probeat_home },
