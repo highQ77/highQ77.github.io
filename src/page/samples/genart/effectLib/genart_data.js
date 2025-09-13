@@ -172,10 +172,78 @@ export let genart_data = {
     },
     LineSpiral: {
         params: { nLineWidth: 10, sColor: 'white', nR: .5, nLoopCount: 1000 },
-        help: { nLineWidth: 10, sColor: 'white', nR: .5, nLoopCount: 1000 },
+        help: { nLineWidth: 'line width', sColor: 'line coloe', nR: 'radius', nLoopCount: 'loop count' },
     },
     RandomCircles: {
         params: { nCount: 50, nMaxCircleWidth: 100 },
-        help: { nCount: 50, nMaxCircleWidth: 100 },
+        help: { nCount: 'circle count', nMaxCircleWidth: 'max circle width' },
+    },
+    RandomGradientLines: {
+        params: { nCount: 50, nMaxLightWidth: 100 },
+        help: { nCount: 'line count', nMaxLightWidth: 'max circle width' },
+    },
+    RandomLines: {
+        params: { nCount: 50, nMaxLineWidth: 100, bDashed: false },
+        help: { nCount: 'line count', nMaxLightWidth: 'max circle width', bDashed: 'is dashed line' },
+    },
+    RandomLinesVH: {
+        params: { nCount: 50, nMaxLightWidth: 100 },
+        help: { nCount: 'line count', nMaxLightWidth: 'max circle width' },
+    },
+    RandomRects: {
+        params: { nCount: 50, nMaxRectWidth: 100 },
+        help: { nCount: 'rect count', nMaxRectWidth: 'max rect width' },
+    },
+    RandomTextPool: {
+        params: { nPixelSize: 100, sDisplayText: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', sFont: 'Impact', nSize: 300 },
+        help: { nPixelSize: 'pixel size', sDisplayText: 'random text', sFont: 'font', nSize: 'font size' },
+    },
+    SpiralAdvance: {
+        params: { nLineWidth: 10, nRFactor: 5, nRFactorDecrement: 0.03, sColor: 'white', nSegs: 36 },
+        help: { nLineWidth: 'line width', nRFactor: 'radius factor', nRFactorDecrement: 'radius factor decrement', sColor: 'color', nSegs: 'segment count' },
+    },
+    CircleMatrix: {
+        params: { nPixelSize: 100 },
+        help: { nPixelSize: 'pixel size' },
+    },
+    Circles: {
+        params: { nR: 100, nLineWidth: 50, nStrokeR: 255, nStrokeG: 255, nStrokeB: 255, nStrokeA: .1, bNoBlend: true },
+        help: { nR: 'radius', nLineWidth: 'line width', nStrokeR: 'stroke red', nStrokeG: 'stroke green', nStrokeB: 'stroke blue', nStrokeA: 'stroke alpha', bNoBlend: 'is not blend' },
+    },
+    Pyramid: {
+        params: { nPixelSize: 100, sColorArray: ['#33333377', '#66666677', '#99999977', '#CCCCCC77'] },
+        help: { nPixelSize: 'pixel size', sColorArray: 'color array' },
+    },
+    RandomRadioCircles: {
+        params: { nCount: 3, nLineWidth: 10, sColor: 'white' },
+        help: { nCount: 'circles count', nLineWidth: 'line width', sColor: 'line color' },
+    },
+    Stream: {
+        params: { nLineWidth: 10, nStrokeR: 255, nStrokeG: 255, nStrokeB: 255, nStrokeA: .1, nOffsetY: 0 },
+        help: { nLineWidth: 'line width', nStrokeR: 'stroke red', nStrokeG: 'stroke green', nStrokeB: 'stroke blue', nStrokeA: 'stroke alpha', nOffsetY: 'offsetY' },
+    },
+    StripeH: {
+        params: { nLineCount: 50, sColor1: '#00000033', sColor2: '#FFFFFF33' },
+        help: { nLineCount: 'line count', sColor1: 'color1', sColor2: 'color2' },
+    },
+    StripeV: {
+        params: { nLineCount: 50, sColor1: '#00000033', sColor2: '#FFFFFF33' },
+        help: { nLineCount: 'line count', sColor1: 'color1', sColor2: 'color2' },
+    },
+    Totem: {
+        params: { nPixelSize: 34, nLineWidth: 6 },
+        help: { nPixelSize: 'pixel size', nLineWidth: 'line width' },
+    },
+    Totem2: {
+        params: { nLineWidth: 5, nStrokeR: 255, nStrokeG: 255, nStrokeB: 255, nStrokeA: .5, nPatternW: 50, nPatternH: 50 },
+        help: { nLineWidth: 'line width', nStrokeR: 'stroke red', nStrokeG: 'stroke green', nStrokeB: 'stroke blue', nStrokeA: 'stroke alpha', nPatternW: 'pattern width', nPatternH: 'pattern height' },
+    },
+    Weaver: {
+        params: { nGridWidth: 100, nLineWidth: 50, nStrokeR: 255, nStrokeG: 255, nStrokeB: 255, nStrokeA: .1 },
+        help: { nGridWidth: 'grid width', nLineWidth: 'line width', nStrokeG: 'stroke green', nStrokeB: 'stroke blue', nStrokeA: 'stroke alpha' },
+    },
+    Web: {
+        params: { bNoBG: true, nPixelSize: 50, nLineWidth: 5, nLineGap: 10 },
+        help: { bNoBG: 'not display background', nPixelSize: 'pixel size', nLineWidth: 'line width', nLineGap: 'line gap' },
     },
 }

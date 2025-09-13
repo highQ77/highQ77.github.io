@@ -46,8 +46,27 @@ import { SVGTurb } from "./effectLib/art/SVGTurb.js"
 import { Flash } from "./effectLib/gen/Flash.js"
 import { LineSpiral } from "./effectLib/gen/LineSpiral.js"
 import { RandomCircles } from "./effectLib/gen/RandomCircles.js"
+import { RandomGradientLines } from "./effectLib/gen/RandomGradientLines.js"
+import { RandomLines } from "./effectLib/gen/RandomLines.js"
+import { RandomLinesVH } from "./effectLib/gen/RandomLinesVH.js"
+import { RandomRects } from "./effectLib/gen/RandomRects.js"
+import { RandomTextPool } from "./effectLib/gen/RandomTextPool.js"
+import { SpiralAdvance } from "./effectLib/gen/SpiralAdvance.js"
 
 import { genart_data } from "./effectLib/genart_data.js"
+import { CircleMatrix } from "./effectLib/pattern/CircleMatrix.js"
+import { Circles } from "./effectLib/pattern/Circles.js"
+import { Pyramid } from "./effectLib/pattern/Pyramid.js"
+import { RandomRadioCircles } from "./effectLib/pattern/RandomRadioCircles.js"
+import { Stream } from "./effectLib/pattern/Stream.js"
+import { StripeH } from "./effectLib/pattern/StripeH.js"
+import { StripeV } from "./effectLib/pattern/StripeV.js"
+import { Totem } from "./effectLib/pattern/Totem.js"
+import { Totem2 } from "./effectLib/pattern/Totem2.js"
+import { Weaver } from "./effectLib/pattern/Weaver.js"
+import { Web } from "./effectLib/pattern/Web.js"
+
+
 
 export function genart_editor() {
 
@@ -339,6 +358,24 @@ export function genart_editor() {
         effectBtns(Flash),
         effectBtns(LineSpiral),
         effectBtns(RandomCircles),
+        effectBtns(RandomGradientLines),
+        effectBtns(RandomLines),
+        effectBtns(RandomLinesVH),
+        effectBtns(RandomRects),
+        effectBtns(RandomTextPool),
+        effectBtns(SpiralAdvance),
+        node.div().setText('★ patterns').setStyle({ border: '.5px solid yellowgreen', background: '#444', padding: '0px 10px', fontSize: '13px' }),
+        effectBtns(CircleMatrix),
+        effectBtns(Circles),
+        effectBtns(Pyramid),
+        effectBtns(RandomRadioCircles),
+        effectBtns(Stream),
+        effectBtns(StripeH),
+        effectBtns(StripeV),
+        effectBtns(Totem),
+        effectBtns(Totem2),
+        effectBtns(Weaver),
+        effectBtns(Web),
         // more in future...
         node.div().setText('more in future...').setStyle({ background: '#444', padding: '0px 10px', fontSize: '13px' }),
     ])
