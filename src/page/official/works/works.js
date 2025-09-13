@@ -117,6 +117,14 @@ export function works() {
                     'demo': 'probeat_home',
                 }
             },
+            {
+                title: 'Gen Artist',
+                desc: '嘗試以 chill.js 設計一款生成式藝術軟體',
+                commments: '2025/09/06',
+                buttonlinks: {
+                    'demo': 'genart',
+                }
+            },
         ]
     }
 

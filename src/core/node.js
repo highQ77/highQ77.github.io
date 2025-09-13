@@ -867,7 +867,7 @@ class Canvas extends NodeBase {
         super(nodeId)
         this.__tag.setAttribute('nodeId', this.__nodeId)
         this.setSize(250, 250)
-        this.__ctx = this.__tag.getContext('2d')
+        this.__ctx = this.__tag.getContext('2d', { willReadFrequently: true })
     }
 
     remove() {

@@ -216,8 +216,15 @@ import { works } from "../page/official/works/works.js"
 import { probeat_game } from "../page/samples/probeat/probeat_game.js"
 import { probeat_home } from "../page/samples/probeat/probeat_home.js"
 import { probeat_result } from "../page/samples/probeat/probeat_result.js"
+import { genart } from "../page/samples/genart/genart.js"
+import { genart_editor } from "../page/samples/genart/genart_editor.js"
 
 export const router_config = {
+
+    // genart
+    'genart': { jsdom_tpl: genart },
+    'genart_editor': { jsdom_tpl: genart_editor },
+
     // works page
     'works': { jsdom_tpl: works },
 
@@ -338,6 +345,6 @@ export const store_config = {
                 great: 0,
                 best: 0
             }
-        },
+        }
     }
 }
