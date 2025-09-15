@@ -137,6 +137,10 @@ export let genart_data = {
         params: { nPixelSize: 30, nStrokeWidth: 15 },
         help: { nPixelSize: 'pixel size', nStrokeWidth: 'stroke width' }
     },
+    Mirror: {
+        params: {},
+        help: {},
+    },
     Noise: {
         params: { nPixelSize: 2, nRedFactor: 2, nGreenFactor: 1, nBlueFactor: 0, nAlphaFactor: 1 },
         help: { nPixelSize: 'pixel size', nRedFactor: 'red factor', nGreenFactor: 'green factor', nBlueFactor: 'blue factor', nAlphaFactor: 'alpha factor' }

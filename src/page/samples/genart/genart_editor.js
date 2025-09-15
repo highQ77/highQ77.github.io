@@ -36,6 +36,7 @@ import { LevelAssign } from "./effectLib/art/LevelAssign.js"
 import { LevelColor } from "./effectLib/art/LevelColor.js"
 import { LevelRandom } from "./effectLib/art/LevelRandom.js"
 import { MicroRect } from "./effectLib/art/MicroRect.js"
+import { Mirror } from "./effectLib/art/Mirror.js"
 import { Noise } from "./effectLib/art/Noise.js"
 import { Pixelate } from "./effectLib/art/Pixelate.js"
 import { PolyAbstract } from "./effectLib/art/PolyAbstract.js"
@@ -270,6 +271,7 @@ export function genart_editor() {
         exec = exec || `${filter.name}(${JSON.stringify(params)})`
         let edit = editTpl(exec)
         edit.on('click', () => {
+            let pObj = JSON.parse(edit.getChildById('command').getText().split('(')[1].split(')')[0])
             edit.getParent().getChildren().forEach(i => i.setStyle({ background: 'transparent' }))
             edit.setStyle({ background: '#444' })
             properties.removeChildren()
@@ -279,7 +281,7 @@ export function genart_editor() {
                     node.div().setStyle({ display: 'flex', padding: '2px' }).setChildren([
                         node.div('pk').setStyle({ width: '33%' }).setText(key),
                         node.div().setStyle({ width: '33%' }).setText(help[key]),
-                        node.div('pv').setStyle({ width: '33%' }).setStyle({ border: '1px solid gray' }).setText(params[key])
+                        node.div('pv').setStyle({ width: '33%' }).setStyle({ border: '1px solid gray' }).setText(pObj[key] || params[key])
                     ])
                 )
             })
@@ -291,6 +293,8 @@ export function genart_editor() {
                 ps.forEach(i => {
                     let v = i.getChildById('pv').getText()
                     if (!isNaN(parseFloat(v[v.length - 1]))) v = parseFloat(i.getChildById('pv').getText())
+                    if (v == 'true') v = true
+                    if (v == 'false') v = false
                     pobj[i.getChildById('pk').getText()] = v
                 })
                 cmd.setText(`${filter.name}(${JSON.stringify(pobj)})`)
@@ -347,6 +351,7 @@ export function genart_editor() {
         // effectBtns(LevelColor),
         effectBtns(LevelRandom),
         effectBtns(MicroRect),
+        effectBtns(Mirror),
         // effectBtns(Noise),
         effectBtns(Pixelate),
         effectBtns(PolyAbstract),
