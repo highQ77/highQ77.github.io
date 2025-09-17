@@ -12,6 +12,7 @@ import { CirclePaint } from "./effectLib/art/CirclePaint.js"
 import { CirclePaint2 } from "./effectLib/art/CirclePaint2.js"
 import { CircleRadial } from "./effectLib/art/CircleRadial.js"
 import { CircleStack } from "./effectLib/art/CircleStack.js"
+import { Colorize } from "./effectLib/art/Colorize.js"
 import { CSSBlur } from './effectLib/art/CSSBlur.js'
 import { CSSBrightness } from "./effectLib/art/CSSBrightness.js"
 import { CSSContrast } from "./effectLib/art/CSSContrast.js"
@@ -287,22 +288,25 @@ export function genart_editor() {
             })
             let ps = properties.getChildren().filter((i, idx) => idx > 0)
             ps.forEach(i => i.getChildById('pv').getHtmlTag().contentEditable = true)
-            ps.forEach((i, idx) => i.getChildById('pv').on('input', (e, t) => {
+            ps.forEach((i, idx) => i.getChildById('pv').on('mouseleave', (e, t) => {
                 let cmd = edit.getChildById('command')
                 let pobj = {}
                 ps.forEach(i => {
                     let v = i.getChildById('pv').getText()
-                    if (!isNaN(parseFloat(v[v.length - 1]))) v = parseFloat(i.getChildById('pv').getText())
-                    if (v == 'true') v = true
-                    if (v == 'false') v = false
+                    if (v[0] != '#') {
+                        if (!isNaN(parseFloat(v[v.length - 1]))) v = parseFloat(i.getChildById('pv').getText())
+                        if (v == 'true') v = true
+                        if (v == 'false') v = false
+                    }
                     pobj[i.getChildById('pk').getText()] = v
                 })
                 cmd.setText(`${filter.name}(${JSON.stringify(pobj)})`)
                 params = pobj
-            }))
-            ps.forEach((i, idx) => i.getChildById('pv').on('blur', () => {
                 render()
             }))
+            // ps.forEach((i, idx) => i.getChildById('pv').on('blur', () => {
+            //     render()
+            // }))
         })
         return { edit, exec }
     }
@@ -327,6 +331,7 @@ export function genart_editor() {
         effectBtns(CirclePaint2),
         effectBtns(CircleRadial),
         effectBtns(CircleStack),
+        effectBtns(Colorize),
         effectBtns(CSSBlur),
         effectBtns(CSSBrightness),
         effectBtns(CSSContrast),

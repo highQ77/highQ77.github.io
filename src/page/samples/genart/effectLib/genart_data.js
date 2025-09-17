@@ -41,6 +41,10 @@ export let genart_data = {
         params: { nWidth: 1500, nCount: 10, nDegree: 20 },
         help: { nWidth: 'width', nCount: 'count of circles', nDegree: 'degree' }
     },
+    Colorize: {
+        params: { sColor: 'red' },
+        help: { sColor: 'color' }
+    },
     CSSBlur: {
         params: { nBlurVal: 20 },
         help: { nBlurVal: 'blur value' },
