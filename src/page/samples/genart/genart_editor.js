@@ -24,6 +24,7 @@ import { Dot } from "./effectLib/art/Dot.js"
 import { Duotone } from "./effectLib/art/Duotone.js"
 import { Edge } from "./effectLib/art/Edge.js"
 import { EdgeCircle } from "./effectLib/art/EdgeCircle.js"
+import { EdgeDetect } from "./effectLib/art/EdgeDetect.js"
 import { Emoji } from "./effectLib/art/Emoji.js"
 import { EmojiCustom } from "./effectLib/art/EmojiCustom.js"
 import { EmojiMatrix } from "./effectLib/art/EmojiMatrix.js"
@@ -343,6 +344,7 @@ export function genart_editor() {
         effectBtns(Duotone),
         // effectBtns(Edge),
         effectBtns(EdgeCircle),
+        effectBtns(EdgeDetect),
         // effectBtns(Emoji),
         effectBtns(EmojiCustom),
         // effectBtns(EmojiMatrix),

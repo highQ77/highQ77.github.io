@@ -89,6 +89,10 @@ export let genart_data = {
         params: { bNoBG: true, nPixelSize: 2, nThreshold: 0.5, nRadius: 200, nRed: 255, nGreen: 255, nBlue: 255, nAlpha: 0.1 },
         help: { bNoBG: 'not display background', nPixelSize: 'pixel size', nThreshold: 'threshold', nRadius: 'radius', nRed: 'red', nGreen: 'green', nBlue: 'blue', nAlpha: 'alpha' }
     },
+    EdgeDetect: {
+        params: {},
+        help: {}
+    },
     Emoji: {
         params: { bNoBG: true, nPixelSize: 20, nThreshold: .5, nFontSizeMutiplier: .8 },
         help: { bNoBG: 'not display background', nPixelSize: 'pixel size', nThreshold: 'threshold', nFontSizeMutiplier: 'font size mutiplier' }
