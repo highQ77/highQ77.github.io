@@ -136,6 +136,7 @@ export function works() {
                 commments: '2025/09/20',
                 buttonlinks: {
                     'github': 'https://github.com/highQ77/uiux-checker/',
+                    'demo': 'https://highq77.github.io/uiux-checker/',
                 }
             },
             {
