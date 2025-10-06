@@ -136,6 +136,7 @@ export function works() {
                 commments: '2025/09/29',
                 buttonlinks: {
                     'github': 'https://github.com/highQ77/cutkit',
+                    'demo': 'https://highq77.github.io/cutkit/output/',
                 }
             },
             {
