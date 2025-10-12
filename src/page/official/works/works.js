@@ -131,6 +131,14 @@ export function works() {
     function getData() {
         return [
             {
+                title: 'MyMD 🔥',
+                desc: 'md 檔 editor 與 viewer',
+                commments: '2025/10/12',
+                buttonlinks: {
+                    'github': 'https://github.com/highQ77/mymd',
+                }
+            },
+            {
                 title: 'CutKit 🔥',
                 desc: '切版輔助工具 for 切版師',
                 commments: '2025/09/29',
