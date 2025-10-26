@@ -131,6 +131,15 @@ export function works() {
     function getData() {
         return [
             {
+                title: 'HTMLWeaver 🔥',
+                desc: '動態 HTML 生成器',
+                commments: '2025/10/26',
+                buttonlinks: {
+                    'github': 'https://github.com/highQ77/html-weaver',
+                    'demo': 'https://highQ77.github.io/html-weaver',
+                }
+            },
+            {
                 title: 'MyMD 🔥',
                 desc: 'md 檔 editor 與 viewer',
                 commments: '2025/10/12',
