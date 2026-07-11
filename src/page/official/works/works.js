@@ -106,7 +106,7 @@ export function works() {
                 desc: '2027 最新 CV',
                 commments: '2027/07/10',
                 buttonlinks: {
-                    'github': 'https://github.com/highQ77/cv',
+                    'demo': 'https://highq77.github.io/cv/',
                 }
             },
             {
