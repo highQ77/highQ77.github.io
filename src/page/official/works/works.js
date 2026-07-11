@@ -102,6 +102,14 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'CV 🔥',
+                desc: '2027 最新 CV',
+                commments: '2027/07/10',
+                buttonlinks: {
+                    'github': 'https://github.com/highQ77/cv',
+                }
+            },
+            {
                 title: 'Animation Tool',
                 desc: '嘗試以 chill.js 設計一款動畫編輯軟體的介面 ( layout only )',
                 commments: '2025/08/22',
