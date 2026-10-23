@@ -101,14 +101,23 @@ export function works() {
 
     function getChillData() {
         return [
+
             {
-                title: 'CV 🔥',
-                desc: '2027 最新 CV',
-                commments: '2027/07/10',
+                title: '生成藝術作品 🔥',
+                desc: '透過程式碼進行平面藝術創作',
+                commments: '2026/10/23',
                 buttonlinks: {
-                    'demo': 'https://highq77.github.io/cv/',
+                    'demo': 'https://highq77.github.io/algo-party/',
                 }
             },
+            // {
+            //     title: 'CV 🔥',
+            //     desc: '2027 最新 CV',
+            //     commments: '2027/07/10',
+            //     buttonlinks: {
+            //         'demo': 'https://highq77.github.io/cv/',
+            //     }
+            // },
             {
                 title: 'Animation Tool',
                 desc: '嘗試以 chill.js 設計一款動畫編輯軟體的介面 ( layout only )',
