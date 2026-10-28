@@ -101,7 +101,14 @@ export function works() {
 
     function getChillData() {
         return [
-
+            {
+                title: '威廉的創意點子 🔥',
+                desc: '一些有趣的創意提案',
+                commments: '2026/10/28',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/ideas/',
+                }
+            },
             {
                 title: '生成藝術作品 🔥',
                 desc: '透過程式碼進行平面藝術創作',
