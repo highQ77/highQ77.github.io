@@ -110,6 +110,14 @@ export function works() {
                 }
             },
             {
+                title: '威廉密碼 🔥',
+                desc: '自製的英文轉數字編碼',
+                commments: '2026/10/30',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/w77code/',
+                }
+            },
+            {
                 title: '生成藝術作品 🔥',
                 desc: '透過程式碼進行平面藝術創作',
                 commments: '2026/10/23',
