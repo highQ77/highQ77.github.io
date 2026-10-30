@@ -125,6 +125,14 @@ export function works() {
                     'demo': 'https://highq77.github.io/algo-party/',
                 }
             },
+            {
+                title: '威廉的諧音玩法整理 🔥',
+                desc: '流行的諧音玩法整理',
+                commments: '2026/10/30',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/w77slogan/',
+                }
+            },
             // {
             //     title: 'CV 🔥',
             //     desc: '2027 最新 CV',
