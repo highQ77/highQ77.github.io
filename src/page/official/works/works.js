@@ -90,7 +90,7 @@ export function works() {
                 ]),
                 node.hr().setStyle({ margin: '20px 0px' }),
             ]),
-            node.div().setText('▶︎ 以 chill.js 開發的專案').setStyle({ margin: '30px 5px' }),
+            node.div().setText('▶︎ 新進行的的專案').setStyle({ margin: '30px 5px' }),
             node.vm_list('', vmItemView, vmItemChillDatas),
             node.div().setText('▶︎ 過往作品').setStyle({ margin: '30px 5px' }),
             node.vm_list('', vmItemView, vmItemDatas),
@@ -101,6 +101,14 @@ export function works() {
 
     function getChillData() {
         return [
+            {
+                title: 'Claude 初探 - audio-visual-spa 🔥',
+                desc: '一個用 Claude 設計的音視覺 spa',
+                commments: '2026/10/31',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0001-audio-visual/',
+                }
+            },
             {
                 title: '威廉的創意點子 🔥',
                 desc: '一些有趣的創意提案',
@@ -170,6 +178,30 @@ export function works() {
 
     function getData() {
         return [
+            {
+                title: 'Animation Tool',
+                desc: '嘗試以 chill.js 設計一款動畫編輯軟體的介面 ( layout only )',
+                commments: '2025/08/22',
+                buttonlinks: {
+                    'demo': 'anitool',
+                }
+            },
+            {
+                title: 'Pro Beat',
+                desc: '嘗試以 chill.js 設計一款節奏 DJ 遊戲',
+                commments: '2025/09/06',
+                buttonlinks: {
+                    'demo': 'probeat_home',
+                }
+            },
+            {
+                title: 'Gen Artist',
+                desc: '嘗試以 chill.js 設計一款生成式藝術軟體',
+                commments: '2025/09/06',
+                buttonlinks: {
+                    'demo': 'genart',
+                }
+            },
             {
                 title: 'HTMLWeaver 🔥',
                 desc: '動態 HTML 生成器',
