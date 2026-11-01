@@ -102,6 +102,14 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude Shader Composer 🔥',
+                desc: '一個用 Claude 設計的 shader composer，支援多個 shader 效果的組合與即時預覽',
+                commments: '2026/11/01',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0002-shader-composer/',
+                }
+            },
+            {
                 title: 'Claude 初探 - audio-visual-spa 🔥',
                 desc: '一個用 Claude 設計的音視覺 spa',
                 commments: '2026/10/31',
