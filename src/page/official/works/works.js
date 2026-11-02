@@ -69,6 +69,7 @@ export function works() {
             node.div().setStyle({ margin: '0px 5px' }).setChildren([
                 node.h1().setText('William77 x Works').setStyle({ fontFamily: 'impact', fontSize: '3em' }),
                 node.div().setText('William77 個人作品涵蓋攝影、藝術、遊戲、網站、軟體、視覺'),
+                node.div().setText('Treads: william77.fun').setStyle({ fontFamily: 'Arial', fontSize: '14px', color: '#666' }),
                 node.hr().setStyle({ margin: '20px 0px', background: primaryColor }),
                 node.div().setStyle({ display: 'flex' }).setChildren([
                     imgItem('official/works/1.png'),
@@ -101,6 +102,14 @@ export function works() {
 
     function getChillData() {
         return [
+            {
+                title: 'Claude TUI-ThreeJS UI Editor 🔥',
+                desc: '一個用 Claude 設計的 ThreeJS UI 編輯器（半成品）',
+                commments: '2026/11/02',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0006-tui/',
+                }
+            },
             {
                 title: 'Claude PowerMIDI workstation 🔥',
                 desc: '一個用 Claude 設計的 MIDI 工作站',
