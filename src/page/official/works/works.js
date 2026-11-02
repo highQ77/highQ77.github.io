@@ -102,6 +102,14 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude PowerMIDI workstation 🔥',
+                desc: '一個用 Claude 設計的 MIDI 工作站',
+                commments: '2026/11/02',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0005-power-midi/',
+                }
+            },
+            {
                 title: 'Claude 黎明原野 Dawnfield 🔥',
                 desc: '一個用 Claude 設計的遊戲場景',
                 commments: '2026/11/02',
