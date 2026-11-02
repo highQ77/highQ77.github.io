@@ -102,6 +102,14 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude PageWeaver 🔥',
+                desc: '一個用 Claude 設計的 網頁編輯器，支援多個網頁元素的組合與即時預覽',
+                commments: '2026/11/02',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0003-page-weaver/',
+                }
+            },
+            {
                 title: 'Claude Shader Composer 🔥',
                 desc: '一個用 Claude 設計的 shader composer，支援多個 shader 效果的組合與即時預覽',
                 commments: '2026/11/01',
