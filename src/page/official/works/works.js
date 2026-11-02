@@ -102,6 +102,14 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude 黎明原野 Dawnfield 🔥',
+                desc: '一個用 Claude 設計的遊戲場景',
+                commments: '2026/11/02',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0004-dawnfield/',
+                }
+            },
+            {
                 title: 'Claude PageWeaver 🔥',
                 desc: '一個用 Claude 設計的 網頁編輯器，支援多個網頁元素的組合與即時預覽',
                 commments: '2026/11/02',
