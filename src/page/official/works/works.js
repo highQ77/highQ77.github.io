@@ -103,6 +103,15 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude webgl2d.js 🔥',
+                desc: '一個用 Claude 設計的擁有 canvas2d API 的 webgl 版本 API - webgl2d.js',
+                commments: '2026/11/03',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0008-webgl2d.js/',
+                    'github': 'https://github.com/highQ77/claude-0008-webgl2d.js',
+                }
+            },
+            {
                 title: 'Claude Juicy.js 🔥',
                 desc: '一個用 Claude 設計的全新 鏈式 + VDOM + MVVM API - Juicy.js',
                 commments: '2026/11/03',
