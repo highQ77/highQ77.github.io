@@ -103,6 +103,15 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude Juicy.js 🔥',
+                desc: '一個用 Claude 設計的全新 鏈式 + VDOM + MVVM API - Juicy.js',
+                commments: '2026/11/03',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0007-juicy/',
+                    'github': 'https://github.com/highQ77/claude-0007-juicy',
+                }
+            },
+            {
                 title: 'Claude TUI-ThreeJS UI Editor 🔥',
                 desc: '一個用 Claude 設計的 ThreeJS UI 編輯器（半成品）',
                 commments: '2026/11/02',
