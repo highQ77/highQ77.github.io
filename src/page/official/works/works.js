@@ -103,6 +103,15 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude Web Terminal 🔥',
+                desc: '一個用 Claude 輔助設計的 Web 終端機',
+                commments: '2026/11/05',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0012-web-terminal/',
+                    'github': 'https://github.com/highQ77/claude-0012-web-terminal',
+                }
+            },
+            {
                 title: 'Claude MyDashboard 🔥',
                 desc: '一個用 Claude 輔助設計的個人儀表板',
                 commments: '2026/11/05',
