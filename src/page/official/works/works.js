@@ -103,6 +103,15 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude Motion Master 🔥',
+                desc: '一個用 Claude 輔助設計的動畫編輯器',
+                commments: '2026/11/05',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0010-motion-master/',
+                    'github': 'https://github.com/highQ77/claude-0010-motion-master',
+                }
+            },
+            {
                 title: 'Claude NovaEditor 🔥',
                 desc: '一個用 Claude 輔助設計的生成藝術濾鏡編輯器',
                 commments: '2026/11/04',
