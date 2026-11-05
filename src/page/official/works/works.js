@@ -103,6 +103,15 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude MyDashboard 🔥',
+                desc: '一個用 Claude 輔助設計的個人儀表板',
+                commments: '2026/11/05',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0011-my-dashboard/',
+                    'github': 'https://github.com/highQ77/claude-0011-my-dashboard',
+                }
+            },
+            {
                 title: 'Claude Motion Master 🔥',
                 desc: '一個用 Claude 輔助設計的動畫編輯器',
                 commments: '2026/11/05',
