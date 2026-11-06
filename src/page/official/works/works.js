@@ -69,7 +69,7 @@ export function works() {
         node.div().setClass('w77-topline'),
         node.div().setClass('w77-news').setChildren([
             node.span().setClass('w77-news-badge').setText('NEWS'),
-            node.span().setClass('w77-news-text').setText('2025/08/21 · 歡迎使用最新發表的 chill.js 開發網頁應用程式或是網頁遊戲'),
+            node.span().setClass('w77-news-text').setText('2025/08/21 · 歡迎光臨 William77 x Works 作品集，這裡收錄了我過往的作品與專案。'),
         ]),
         node.div().setClass('w77-wrap').setChildren([
             node.div().setClass('w77-hero').setChildren([
