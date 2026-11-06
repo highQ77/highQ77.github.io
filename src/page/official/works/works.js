@@ -28,7 +28,10 @@ export function works() {
             node.div().setClass('w77-card-foot').setChildren([
                 node.div().setClass('w77-chip').setText(item.commments),
                 node.div().setClass('w77-actions').setChildren(
-                    Object.keys(item.buttonlinks).map(k => {
+                    Object.keys(item.buttonlinks).sort((a, b) => {
+                        const order = { github: 0, demo: 1 }
+                        return (order[a] ?? 2) - (order[b] ?? 2)
+                    }).map(k => {
                         const btn = node.div().setClass('w77-btn' + (k == 'demo' ? ' is-primary' : ''))
                             .setText(k == 'demo' ? 'Demo ↗' : k == 'github' ? 'GitHub' : k)
                             .on('click', e => { e.stopPropagation(); openLink(item.buttonlinks[k]) })
