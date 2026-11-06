@@ -3,102 +3,236 @@ import { router } from "../../../core/router.js"
 
 export function works() {
 
-    // let primaryColor = `rgb(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255})`
-    let primaryColor = `rgb(187, 253, 111)`
+    injectWorksStyle()
+
+    const chillData = getChillData()
+    const pastData = getData()
 
     // works list data
-    let vmItemDatas = node.proxy(getData())
-    let vmItemChillDatas = node.proxy(getChillData())
+    let vmItemDatas = node.proxy(pastData.slice())
+    let vmItemChillDatas = node.proxy(chillData.slice())
 
-    // works list view
-    let vmItemView = (item) => node.div().setClass('rwd-sm:width[100%] rwd-lg:width[50%]').setStyle({ display: 'inline-flex', padding: '5px', width: '50%' }).setChildren([
-        node.div().setStyle({ background: '#00000055', padding: '20px', border: '1px solid transparent', width: '100%', transition: 'all .5s' }).setChildren([
-            node.div().setStyle({ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }).setChildren([
-                node.div().setChildren([
-                    node.div().setStyle({ fontFamily: 'impact', fontSize: '1.5em' }).setChildren([
-                        node.span().setText('❖ ').setStyle({ color: primaryColor }),
-                        node.span().setText(item.title)
-                    ]),
-                    node.div().setStyle({ display: 'flex', alignItems: 'center', fontSize: '14px', marginTop: '10px' }).setChildren([
-                        node.div().setText(item.desc).setStyle({ marginRight: '10px' }),
-                        node.div().setText(item.commments).setStyle({ color: primaryColor }),
-                    ]),
-                ]),
-                node.div().setChildren([
-                    ...Object.keys(item.buttonlinks).map(k => node.div().setChildren([
-                        node.button('', '',
-                            {
-                                border: '1px solid ' + primaryColor,
-                                borderBottom: '2px solid gray',
-                            },
-                        ).setText(k).setStyle({ marginBottom: '5px', width: '100%' }).on('click', _ => {
-                            if (item.buttonlinks[k]) {
-                                if (item.buttonlinks[k].indexOf('http') == 0)
-                                    window.open(item.buttonlinks[k], '_blank')
-                                else {
-                                    router.go(item.buttonlinks[k])
-                                }
-                            }
-                        })
-                    ]))
-                ]),
-            ]),
-            node.hr().setStyle({ background: '#FFFFFF22', width: '100%', marginTop: '10px' })
-        ]).on('mouseenter', (e, t) => {
-            t.setStyle({ boxShadow: '0 0 150px ' + primaryColor, border: '1px solid ' + primaryColor })
-        }).on('mouseleave', (e, t) => {
-            t.setStyle({ boxShadow: '0 0 0 white', border: '1px solid transparent' })
-        }),
-    ])
-
-    // image item
-    let imgItem = (path) => {
-        return node.divimg('', path).setStyle({ width: '90px', transition: 'width 1s', backgroundPosition: '50% 50%', filter: 'grayscale(1)' })
-            .on('mouseenter', (e, t) => {
-                t.setStyle({ width: '900px', filter: 'grayscale(0)' })
-            }).on('mouseleave', (e, t) => {
-                t.setStyle({ width: '90px', filter: 'grayscale(1)' })
-            })
+    const openLink = (link) => {
+        if (!link) return
+        if (link.indexOf('http') == 0) window.open(link, '_blank')
+        else router.go(link)
     }
 
-    // jsdon - all page structure 
-    let jsdom = node.div().setChildren([
-        node.div().setStyle({ background: primaryColor, height: '5px' }),
-        node.div().setStyle({ position: 'sticky', top: '0px', zIndex: '1000', backdropFilter: 'blur(5px)', background: '#33402299', color: primaryColor, padding: '5px 25px', margin: '10px 0px', fontSize: '14px' }).setText('News 2025/08/21 : 歡迎使用最新發表的 chill.js 開發網頁應用程式或是網頁遊戲'),
-        node.div().setStyle({ padding: '20px' }).setChildren([
-            node.div().setStyle({ margin: '0px 5px' }).setChildren([
-                node.h1().setText('William77 x Works').setStyle({ fontFamily: 'impact', fontSize: '3em' }),
-                node.div().setText('William77 個人作品涵蓋攝影、藝術、遊戲、網站、軟體、視覺'),
-                node.div().setText('Treads: william77.fun').setStyle({ fontFamily: 'Arial', fontSize: '14px', color: '#666' }),
-                node.hr().setStyle({ margin: '20px 0px', background: primaryColor }),
-                node.div().setStyle({ display: 'flex' }).setChildren([
-                    imgItem('official/works/1.png'),
-                    imgItem('official/works/2.png'),
-                    imgItem('official/works/3.png'),
-                    imgItem('official/works/4.png'),
-                    imgItem('official/works/5.png'),
-                    imgItem('official/works/6.png'),
-                    imgItem('official/works/7.png'),
-                    imgItem('official/works/8.png'),
-                    imgItem('official/works/9.png'),
-                    imgItem('official/works/10.png'),
-                    imgItem('official/works/11.png'),
-                    imgItem('official/works/12.png'),
-                    imgItem('official/works/a.png'),
-                    imgItem('official/works/b.png'),
-                    imgItem('official/works/c.png'),
-                    imgItem('official/works/d.png'),
-                ]),
-                node.hr().setStyle({ margin: '20px 0px' }),
+    // works list view
+    let vmItemView = (item) => {
+        const card = node.div().setClass('w77-card').setChildren([
+            node.div().setClass('w77-card-body').setChildren([
+                node.div().setClass('w77-card-title').setText(item.title),
+                node.div().setClass('w77-card-desc').setText(item.desc),
             ]),
-            node.div().setText('▶︎ 新進行的的專案').setStyle({ margin: '30px 5px' }),
-            node.vm_list('', vmItemView, vmItemChillDatas),
-            node.div().setText('▶︎ 過往作品').setStyle({ margin: '30px 5px' }),
-            node.vm_list('', vmItemView, vmItemDatas),
+            node.div().setClass('w77-card-foot').setChildren([
+                node.div().setClass('w77-chip').setText(item.commments),
+                node.div().setClass('w77-actions').setChildren(
+                    Object.keys(item.buttonlinks).map(k => {
+                        const btn = node.div().setClass('w77-btn' + (k == 'demo' ? ' is-primary' : ''))
+                            .setText(k == 'demo' ? 'Demo ↗' : k == 'github' ? 'GitHub' : k)
+                            .on('click', e => { e.stopPropagation(); openLink(item.buttonlinks[k]) })
+                        const tag = btn.getHtmlTag()
+                        tag.setAttribute('role', 'link')
+                        tag.setAttribute('tabindex', '0')
+                        tag.addEventListener('keydown', e => { if (e.key == 'Enter' || e.key == ' ') { e.preventDefault(); openLink(item.buttonlinks[k]) } })
+                        return btn
+                    })
+                ),
+            ]),
+        ]).on('mousemove', (e, t) => {
+            const r = t.getHtmlTag().getBoundingClientRect()
+            t.getHtmlTag().style.setProperty('--mx', (e.clientX - r.left) + 'px')
+            t.getHtmlTag().style.setProperty('--my', (e.clientY - r.top) + 'px')
+        })
+        return card
+    }
+
+    // gallery image item
+    let imgItem = (path) => node.divimg('', path).setClass('w77-shot').setStyle({ width: 'auto', height: '100%', backgroundPosition: '50% 50%' })
+
+    const sectionHead = (label, en, count) => node.div().setClass('w77-section-head').setChildren([
+        node.div().setClass('w77-section-title').setChildren([
+            node.span().setClass('w77-section-en').setText(en),
+            node.span().setText(label),
+        ]),
+        node.div().setClass('w77-count').setText(String(count).padStart(2, '0') + ' items'),
+    ])
+
+    const shots = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', 'a', 'b', 'c', 'd']
+
+    // jsdom - all page structure
+    let jsdom = node.div().setClass('w77').setChildren([
+        node.div().setClass('w77-topline'),
+        node.div().setClass('w77-news').setChildren([
+            node.span().setClass('w77-news-badge').setText('NEWS'),
+            node.span().setClass('w77-news-text').setText('2025/08/21 · 歡迎使用最新發表的 chill.js 開發網頁應用程式或是網頁遊戲'),
+        ]),
+        node.div().setClass('w77-wrap').setChildren([
+            node.div().setClass('w77-hero').setChildren([
+                node.div().setClass('w77-eyebrow').setText('Portfolio · Since 2024'),
+                node.h1().setClass('w77-title').setStyle({ fontSize: '' }).setText('William77 x Works'),
+                node.div().setClass('w77-lead').setText('William77 個人作品涵蓋攝影、藝術、遊戲、網站、軟體、視覺'),
+                node.div().setClass('w77-meta').setChildren([
+                    node.span().setText('Threads'),
+                    node.span().setClass('w77-meta-link').setText('@william77.fun')
+                        .on('click', _ => window.open('https://www.threads.net/@william77.fun', '_blank')),
+                ]),
+            ]),
+            node.div().setClass('w77-gallery').setChildren(shots.map(n => imgItem('official/works/' + n + '.png'))),
+            sectionHead('新進行的專案', 'Latest', chillData.length),
+            node.vm_list('', vmItemView, vmItemChillDatas).setClass('w77-grid'),
+            sectionHead('過往作品', 'Archive', pastData.length),
+            node.vm_list('', vmItemView, vmItemDatas).setClass('w77-grid'),
+            node.div().setClass('w77-footer').setText('© William77 · Built with chill.js'),
         ])
     ])
 
     return jsdom
+
+    function injectWorksStyle() {
+        if (document.getElementById('w77-works-style')) return
+        const font = document.createElement('link')
+        font.rel = 'stylesheet'
+        font.href = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap'
+        document.head.appendChild(font)
+        const style = document.createElement('style')
+        style.id = 'w77-works-style'
+        style.textContent = `
+.w77 {
+    --accent: rgb(187, 253, 111);
+    --accent-rgb: 187, 253, 111;
+    --bg: #1c2119;
+    --surface: rgba(255,255,255,.07);
+    --surface-hover: rgba(255,255,255,.11);
+    --line: rgba(255,255,255,.14);
+    --text: #F6F8F3;
+    --muted: #B4BCB0;
+    position: relative; min-height: 100%;
+    background: var(--bg); color: var(--text);
+    font-family: 'Noto Sans TC', -apple-system, 'PingFang TC', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; isolation: isolate; overflow-x: clip;
+}
+.w77::before {
+    content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+        radial-gradient(900px 500px at 85% -10%, rgba(var(--accent-rgb), .2), transparent 60%),
+        radial-gradient(700px 500px at -10% 30%, rgba(90, 140, 255, .14), transparent 60%),
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 48px 48px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.35) 70%);
+            mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.35) 70%);
+}
+.w77-topline { height: 3px; background: linear-gradient(90deg, transparent, var(--accent) 30%, #6fe3fd 70%, transparent); }
+.w77-news {
+    position: sticky; top: 0; z-index: 1000;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 32px; font-size: 13px; color: var(--muted);
+    background: rgba(28,33,25,.75);
+    -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid var(--line);
+}
+.w77-news-badge {
+    flex: none; font: 700 10px/1 'Space Grotesk', sans-serif; letter-spacing: .14em;
+    color: #0d0f0c; background: var(--accent); padding: 5px 8px; border-radius: 999px;
+}
+.w77-news-text { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.w77-wrap { max-width: 1320px; margin: 0 auto; padding: 0 32px 64px; }
+
+.w77-hero { padding: 72px 0 40px; }
+.w77-eyebrow {
+    font: 500 12px/1 'Space Grotesk', sans-serif; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+}
+.w77-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+.w77-title {
+    margin: 0; font: 700 clamp(44px, 7.5vw, 96px)/.95 'Space Grotesk', sans-serif; letter-spacing: -.035em;
+    background: linear-gradient(180deg, #fff 30%, #c9d1c3 120%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.w77-lead { margin-top: 22px; font-size: 17px; line-height: 1.7; color: #DCE1D8; max-width: 640px; }
+.w77-meta { margin-top: 14px; display: flex; gap: 8px; font-size: 13px; color: var(--muted); }
+.w77-meta-link { color: var(--text); cursor: pointer; border-bottom: 1px solid rgba(var(--accent-rgb), .5); transition: color .2s; }
+.w77-meta-link:hover { color: var(--accent); }
+
+.w77-gallery {
+    display: flex; gap: 6px; height: 320px; margin: 8px 0 24px;
+    padding: 6px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line);
+}
+.w77-shot {
+    flex: 1 1 0; min-width: 0; border-radius: 12px; cursor: zoom-in;
+    filter: grayscale(.6) brightness(.95);
+    transition: flex-grow .8s cubic-bezier(.22,1,.36,1), filter .5s ease;
+}
+.w77-shot:hover { flex-grow: 14; filter: grayscale(0) brightness(1); }
+
+.w77-section-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin: 64px 0 20px; padding-bottom: 14px; border-bottom: 1px solid var(--line);
+}
+.w77-section-title { display: flex; align-items: baseline; gap: 14px; font-size: 22px; font-weight: 700; }
+.w77-section-en { font: 500 12px/1 'Space Grotesk', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+.w77-count { font: 500 12px/1 'Space Grotesk', sans-serif; letter-spacing: .08em; color: var(--muted); }
+
+.w77-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr)); gap: 16px; }
+.w77-grid > * { min-width: 0; }
+.w77-card {
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between; gap: 22px;
+    padding: 22px 22px 18px; border-radius: 16px;
+    background: var(--surface); border: 1px solid var(--line);
+    transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s, background .35s, box-shadow .35s;
+    animation: w77-in .6s cubic-bezier(.22,1,.36,1) both;
+}
+.w77-card::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s;
+    background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(var(--accent-rgb), .12), transparent 60%);
+}
+.w77-card:hover {
+    transform: translateY(-3px); background: var(--surface-hover);
+    border-color: rgba(var(--accent-rgb), .35);
+    box-shadow: 0 24px 60px -28px rgba(var(--accent-rgb), .45), 0 2px 0 rgba(255,255,255,.03) inset;
+}
+.w77-card:hover::before { opacity: 1; }
+.w77-card-title { font: 700 19px/1.35 'Space Grotesk', 'Noto Sans TC', sans-serif; letter-spacing: -.01em; }
+.w77-card-desc { margin-top: 8px; font-size: 14px; line-height: 1.65; color: var(--muted); }
+.w77-card-foot { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.w77-chip {
+    font: 500 12px/1 'Space Grotesk', 'Noto Sans TC', sans-serif; color: var(--accent);
+    padding: 6px 10px; border-radius: 999px; background: rgba(var(--accent-rgb), .08); border: 1px solid rgba(var(--accent-rgb), .18);
+}
+.w77-actions { display: flex; gap: 8px; }
+.w77-btn {
+    cursor: pointer; user-select: none; font: 500 13px/1 'Space Grotesk', sans-serif;
+    padding: 9px 14px; border-radius: 10px; color: var(--text);
+    background: rgba(255,255,255,.04); border: 1px solid var(--line);
+    transition: background .2s, border-color .2s, color .2s, transform .15s;
+}
+.w77-btn:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.2); }
+.w77-btn:active { transform: scale(.96); }
+.w77-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.w77-btn.is-primary { color: #0d0f0c; background: var(--accent); border-color: var(--accent); font-weight: 700; }
+.w77-btn.is-primary:hover { background: #d2ff9c; border-color: #d2ff9c; }
+
+.w77-footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+
+@keyframes w77-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 768px) {
+    .w77-news { padding: 10px 16px; }
+    .w77-wrap { padding: 0 16px 48px; }
+    .w77-hero { padding: 48px 0 28px; }
+    .w77-grid { grid-template-columns: 1fr; }
+    .w77-gallery { height: 200px; overflow-x: auto; }
+    .w77-shot { flex: 0 0 64px; }
+    .w77-shot:hover { flex-basis: 260px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .w77-card, .w77-shot, .w77-btn { animation: none; transition: none; }
+}
+`
+        document.head.appendChild(style)
+    }
 
     function getChillData() {
         return [
