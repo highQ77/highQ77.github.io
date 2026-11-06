@@ -103,6 +103,15 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude Accessibility Tools Pro 🔥',
+                desc: '一個用 Claude 設計的超強網頁無障礙輔助設計工具!',
+                commments: '2026/11/06',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0013-accessibility-tools-pro/',
+                    'github': 'https://github.com/highQ77/claude-0013-accessibility-tools-pro',
+                }
+            },
+            {
                 title: 'Claude Web Terminal 🔥',
                 desc: '一個用 Claude 輔助設計的 Web 終端機',
                 commments: '2026/11/05',
