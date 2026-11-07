@@ -239,7 +239,14 @@ export function works() {
 
     function getChillData() {
         return [
-            // claude-0014-stg-level-editor
+            {
+                title: 'Three.js r170 繁中說明文件 🔥',
+                desc: '一個用 Claude 生成的 Three.js 繁中說明文件',
+                commments: '2026/11/07',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/threejs-r170-doc/',
+                }
+            },
             {
                 title: 'Claude STG Level Editor 🔥',
                 desc: '一個用 Claude 設計的 shooting game level editor',
