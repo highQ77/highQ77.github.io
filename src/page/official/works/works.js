@@ -239,9 +239,19 @@ export function works() {
 
     function getChillData() {
         return [
+            // claude-0014-stg-level-editor
+            {
+                title: 'Claude STG Level Editor 🔥',
+                desc: '一個用 Claude 設計的 shooting game level editor',
+                commments: '2026/11/07',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0014-stg-level-editor/',
+                    'github': 'https://github.com/highQ77/claude-0014-stg-level-editor',
+                }
+            },
             {
                 title: 'Claude Accessibility Tools Pro 🔥',
-                desc: '一個用 Claude 設計的超強網頁無障礙輔助設計工具!',
+                desc: '一個用 Claude 設計的超強網頁無障礙輔助設計工具',
                 commments: '2026/11/06',
                 buttonlinks: {
                     'demo': 'https://highq77.github.io/claude-0013-accessibility-tools-pro/',
