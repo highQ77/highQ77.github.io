@@ -240,9 +240,18 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude Image Upscaler 🔥',
+                desc: '一個用 Claude 設計的圖片放大品質提升的軟體',
+                commments: '2026/11/09',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0016-image-upscale-tool/',
+                    'github': 'https://github.com/highQ77/claude-0016-image-upscale-tool',
+                }
+            },
+            {
                 title: 'Claude 墨韻 🔥',
                 desc: '一個用 Claude 設計的書法水墨編輯器',
-                commments: '2026/11/07',
+                commments: '2026/11/09',
                 buttonlinks: {
                     'demo': 'https://highq77.github.io/claude-0015-calligraphy/',
                     'github': 'https://github.com/highQ77/claude-0015-calligraphy',
