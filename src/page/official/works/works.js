@@ -240,6 +240,15 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude 墨韻 🔥',
+                desc: '一個用 Claude 設計的書法水墨編輯器',
+                commments: '2026/11/07',
+                buttonlinks: {
+                    'demo': 'https://highq77.github.io/claude-0015-calligraphy/',
+                    'github': 'https://github.com/highQ77/claude-0015-calligraphy',
+                }
+            },
+            {
                 title: 'Three.js r170 繁中說明文件 🔥',
                 desc: '一個用 Claude 生成的 Three.js 繁中說明文件',
                 commments: '2026/11/07',
