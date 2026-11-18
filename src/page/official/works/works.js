@@ -240,6 +240,14 @@ export function works() {
     function getChillData() {
         return [
             {
+                title: 'Claude HERO Engine 🔥',
+                desc: 'HERO 遊戲引擎 = Threejs 繪圖引擎 x Claude 引擎實作 x William77 組織與規劃。適合開發網頁遊戲、網頁3d應用程式',
+                commments: '2026/11/18',
+                buttonlinks: {
+                    'github': 'https://github.com/highQ77/claude-0017-hero-engine',
+                }
+            },
+            {
                 title: 'Claude Image Upscaler 🔥',
                 desc: '一個用 Claude 設計的圖片放大品質提升的軟體',
                 commments: '2026/11/09',
