@@ -244,6 +244,7 @@ export function works() {
                 desc: 'HERO 遊戲引擎 = Threejs 繪圖引擎 x Claude 引擎實作 x William77 組織與規劃。適合開發網頁遊戲、網頁3d應用程式',
                 commments: '2026/11/18',
                 buttonlinks: {
+                    'demo': 'https://highq77.github.io/hero-engine-demo-desert/',
                     'github': 'https://github.com/highQ77/claude-0017-hero-engine',
                 }
             },
